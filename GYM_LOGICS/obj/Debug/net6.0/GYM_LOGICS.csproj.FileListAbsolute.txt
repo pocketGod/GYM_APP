@@ -1,0 +1,15 @@
+C:\Users\Aviv\Desktop\newSchool\Projects\Gym\GYM_LOGICS\bin\Debug\net6.0\GYM_LOGICS.deps.json
+C:\Users\Aviv\Desktop\newSchool\Projects\Gym\GYM_LOGICS\bin\Debug\net6.0\GYM_LOGICS.dll
+C:\Users\Aviv\Desktop\newSchool\Projects\Gym\GYM_LOGICS\bin\Debug\net6.0\GYM_LOGICS.pdb
+C:\Users\Aviv\Desktop\newSchool\Projects\Gym\GYM_LOGICS\bin\Debug\net6.0\GYM_MODELS.dll
+C:\Users\Aviv\Desktop\newSchool\Projects\Gym\GYM_LOGICS\bin\Debug\net6.0\GYM_MODELS.pdb
+C:\Users\Aviv\Desktop\newSchool\Projects\Gym\GYM_LOGICS\obj\Debug\net6.0\GYM_LOGICS.csproj.AssemblyReference.cache
+C:\Users\Aviv\Desktop\newSchool\Projects\Gym\GYM_LOGICS\obj\Debug\net6.0\GYM_LOGICS.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Aviv\Desktop\newSchool\Projects\Gym\GYM_LOGICS\obj\Debug\net6.0\GYM_LOGICS.AssemblyInfoInputs.cache
+C:\Users\Aviv\Desktop\newSchool\Projects\Gym\GYM_LOGICS\obj\Debug\net6.0\GYM_LOGICS.AssemblyInfo.cs
+C:\Users\Aviv\Desktop\newSchool\Projects\Gym\GYM_LOGICS\obj\Debug\net6.0\GYM_LOGICS.csproj.CoreCompileInputs.cache
+C:\Users\Aviv\Desktop\newSchool\Projects\Gym\GYM_LOGICS\obj\Debug\net6.0\GYM_LOGICS.csproj.CopyComplete
+C:\Users\Aviv\Desktop\newSchool\Projects\Gym\GYM_LOGICS\obj\Debug\net6.0\GYM_LOGICS.dll
+C:\Users\Aviv\Desktop\newSchool\Projects\Gym\GYM_LOGICS\obj\Debug\net6.0\refint\GYM_LOGICS.dll
+C:\Users\Aviv\Desktop\newSchool\Projects\Gym\GYM_LOGICS\obj\Debug\net6.0\GYM_LOGICS.pdb
+C:\Users\Aviv\Desktop\newSchool\Projects\Gym\GYM_LOGICS\obj\Debug\net6.0\ref\GYM_LOGICS.dll
