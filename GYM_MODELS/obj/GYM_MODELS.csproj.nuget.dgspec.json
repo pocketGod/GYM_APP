@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Aviv\\Desktop\\newSchool\\Projects\\Gym\\GYM_MODELS\\GYM_MODELS.csproj": {}
+    "C:\\Users\\Aviv\\Desktop\\newSchool\\Projects\\GYM_APP\\GYM_MODELS\\GYM_MODELS.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Aviv\\Desktop\\newSchool\\Projects\\Gym\\GYM_MODELS\\GYM_MODELS.csproj": {
+    "C:\\Users\\Aviv\\Desktop\\newSchool\\Projects\\GYM_APP\\GYM_MODELS\\GYM_MODELS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Aviv\\Desktop\\newSchool\\Projects\\Gym\\GYM_MODELS\\GYM_MODELS.csproj",
+        "projectUniqueName": "C:\\Users\\Aviv\\Desktop\\newSchool\\Projects\\GYM_APP\\GYM_MODELS\\GYM_MODELS.csproj",
         "projectName": "GYM_MODELS",
-        "projectPath": "C:\\Users\\Aviv\\Desktop\\newSchool\\Projects\\Gym\\GYM_MODELS\\GYM_MODELS.csproj",
+        "projectPath": "C:\\Users\\Aviv\\Desktop\\newSchool\\Projects\\GYM_APP\\GYM_MODELS\\GYM_MODELS.csproj",
         "packagesPath": "C:\\Users\\Aviv\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Aviv\\Desktop\\newSchool\\Projects\\Gym\\GYM_MODELS\\obj\\",
+        "outputPath": "C:\\Users\\Aviv\\Desktop\\newSchool\\Projects\\GYM_APP\\GYM_MODELS\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Aviv\\AppData\\Roaming\\NuGet\\NuGet.Config",

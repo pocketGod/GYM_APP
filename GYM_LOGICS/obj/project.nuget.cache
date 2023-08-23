@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+xQ9SA8slFolSwWtrqdRx4IXVP22LNxM8STHiJsIqvb5g7N3fuuk70bkS1yCycodw+6BcBV7tpihe4ZuPVhTQA==",
+  "dgSpecHash": "LVm+LbLBVOMLV/Ww1muLnWfe7Hvw0feQK40BXRUSJle8wabbrhS8Ub7cPGqtLznVaA4P3Ri1PSvNeURTs4DsAQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Aviv\\Desktop\\newSchool\\Projects\\Gym\\GYM_LOGICS\\GYM_LOGICS.csproj",
+  "projectFilePath": "C:\\Users\\Aviv\\Desktop\\newSchool\\Projects\\GYM_APP\\GYM_LOGICS\\GYM_LOGICS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Aviv\\.nuget\\packages\\awssdk.core\\3.7.100.14\\awssdk.core.3.7.100.14.nupkg.sha512",
     "C:\\Users\\Aviv\\.nuget\\packages\\awssdk.securitytoken\\3.7.100.14\\awssdk.securitytoken.3.7.100.14.nupkg.sha512",

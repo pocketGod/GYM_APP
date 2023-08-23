@@ -12,7 +12,7 @@ namespace GYM_LOGICS.Managers
         }
         public Task<List<ExcerciseDBRecord>> GetAllExcercises(){
 
-            return Task.FromResult(_excerciseService.GetExcercises());
+            return Task.FromResult(_excerciseService.GetAllExcercises());
         }
     }
 }
