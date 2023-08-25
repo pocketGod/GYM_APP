@@ -18,7 +18,7 @@ namespace GYM_LOGICS.Controllers
 
         [HttpGet]
         [Route("GetAllExercises")]
-        public ActionResult<List<ExcerciseDBRecord>> GetAllExcercises()
+        public ActionResult<List<ExerciseDBRecord>> GetAllExcercises()
         {
             return Ok(_workoutManager.GetAllExcercises());
         }

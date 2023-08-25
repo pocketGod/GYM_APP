@@ -2,3 +2,7 @@
 **/[Bb]in/
 
 .vs/
+
+GYM_API/appsettings.json
+
+GYM_API/appsettings.Development.json
