@@ -6,24 +6,24 @@ using Microsoft.AspNetCore.Mvc;
 namespace GYM_LOGICS.Controllers
 {
     [ApiController]
-    [Route("api/excercises")]
-    public class ExcerciseController : ControllerBase
+    [Route("api/exercises")]
+    public class ExerciseController : ControllerBase
     {
         private readonly WorkoutManager _workoutManager;
 
-        public ExcerciseController(WorkoutManager workoutManager)
+        public ExerciseController(WorkoutManager workoutManager)
         {
             _workoutManager = workoutManager;
         }
 
         [HttpGet]
-        [Route("GetAllExcercises")]
-        public ActionResult<List<ExcerciseDBRecord>> GetAllExcercises()
+        [Route("GetAllExercises")]
+        public ActionResult<List<ExerciseDBRecord>> GetAllExcercises()
         {
             return Ok(_workoutManager.GetAllExcercises());
         }
 
-        // Other endpoints...
+        
     }
 
 }
