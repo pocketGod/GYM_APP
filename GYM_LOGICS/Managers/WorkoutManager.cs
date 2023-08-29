@@ -5,14 +5,22 @@ namespace GYM_LOGICS.Managers
 {
     public class WorkoutManager
     {
-        private readonly ExcerciseService _excerciseService;
-        public WorkoutManager(ExcerciseService excerciseService)
+        private readonly ExerciseService _exerciseService;
+        private readonly WorkoutService _workoutService;
+        public WorkoutManager(WorkoutService workoutService, ExerciseService exerciseService)
         {
-            _excerciseService = excerciseService;
+            _workoutService = workoutService;
+            _exerciseService = exerciseService;
         }
-        public Task<List<ExerciseDBRecord>> GetAllExcercises(){
+        public Task<List<ExerciseDBRecord>> GetAllExercises(){
 
-            return Task.FromResult(_excerciseService.GetAllExcercises());
+            return Task.FromResult(_exerciseService.GetAllExercises());
+        }
+
+        public Task<List<WorkoutDBRecord>> GetAllWorkouts()
+        {
+
+            return Task.FromResult(_workoutService.GetAllWorkouts());
         }
     }
 }

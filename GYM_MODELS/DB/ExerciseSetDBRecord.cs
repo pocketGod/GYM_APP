@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace GYM_MODELS.DB
 {
-    public class ExerciseSetDBRecord : BaseDBRecord
+    public class ExerciseSetDBRecord 
     {
         /// <summary>
-        /// Order Of This Set Between Other Sets Of The Same Exercise ()
+        /// Order Of This Set Between Other Sets Of The Same Exercise
         /// </summary>
         public int Order { get; set; }
         

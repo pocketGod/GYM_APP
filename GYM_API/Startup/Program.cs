@@ -8,7 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Dependency Injections
 builder.Services.AddScoped<WorkoutManager>();
-builder.Services.AddScoped<ExcerciseService>();
+builder.Services.AddScoped<ExerciseService>();
+builder.Services.AddScoped<WorkoutService>();
 
 // MongoDB Injections
 var mongoDbSettings = builder.Configuration.GetSection("MongoDB").Get<MongoDBSettings>();

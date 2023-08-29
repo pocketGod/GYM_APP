@@ -46,7 +46,7 @@ namespace GYM_MODELS.DB
 
     }
 
-    public class InternalWorkoutExerciseDBRecord : BaseDBRecord
+    public class InternalWorkoutExerciseDBRecord
     {
         /// <summary>
         /// Refrence to Exercise ID in Exercise Collection

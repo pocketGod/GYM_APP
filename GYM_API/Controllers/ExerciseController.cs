@@ -1,12 +1,11 @@
 ﻿using GYM_LOGICS.Managers;
-using GYM_LOGICS.Services;
 using GYM_MODELS.DB;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GYM_LOGICS.Controllers
 {
     [ApiController]
-    [Route("api/exercises")]
+    [Route("api/exercise")]
     public class ExerciseController : ControllerBase
     {
         private readonly WorkoutManager _workoutManager;
@@ -18,9 +17,9 @@ namespace GYM_LOGICS.Controllers
 
         [HttpGet]
         [Route("GetAllExercises")]
-        public ActionResult<List<ExerciseDBRecord>> GetAllExcercises()
+        public ActionResult<List<ExerciseDBRecord>> GetAllExercises()
         {
-            return Ok(_workoutManager.GetAllExcercises());
+            return Ok(_workoutManager.GetAllExercises());
         }
 
         
