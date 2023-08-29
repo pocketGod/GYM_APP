@@ -10,10 +10,13 @@ using GYM_MODELS.Enums.User;
 
 namespace GYM_MODELS.DB
 {
+    /// <summary>
+    /// Workout routine schema
+    /// </summary>
     public class WorkoutDBRecord : BaseDBRecord
     {
         /// <summary>
-        /// Exercise name
+        /// Workout name
         /// </summary>
         public string Name { get; set; }
 
@@ -35,6 +38,9 @@ namespace GYM_MODELS.DB
 
     }
 
+    /// <summary>
+    /// The actual workout performed (weights, reps, times, etc...)
+    /// </summary>
     public class WorkoutPerformanceDBRecord : BaseDBRecord
     {
         /// <summary>
