@@ -22,3 +22,5 @@ C:\Users\Aviv\Desktop\newSchool\Projects\GYM_APP\GYM_MODELS\obj\Debug\net6.0\GYM
 C:\Users\Aviv\Desktop\newSchool\Projects\GYM_APP\GYM_MODELS\obj\Debug\net6.0\refint\GYM_MODELS.dll
 C:\Users\Aviv\Desktop\newSchool\Projects\GYM_APP\GYM_MODELS\obj\Debug\net6.0\GYM_MODELS.pdb
 C:\Users\Aviv\Desktop\newSchool\Projects\GYM_APP\GYM_MODELS\obj\Debug\net6.0\ref\GYM_MODELS.dll
+C:\Users\Aviv\Desktop\newSchool\Projects\GYM_APP\GYM_MODELS\bin\Debug\net6.0\GYM_MODELS.xml
+C:\Users\Aviv\Desktop\newSchool\Projects\GYM_APP\GYM_MODELS\obj\Debug\net6.0\GYM_MODELS.xml

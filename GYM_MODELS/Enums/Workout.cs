@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GYM_MODELS.Settings.Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace GYM_MODELS.Enums.Workout
 {
+    [EnumGroup("Workout")]
+    [EnumTitle("Workout Types")]
     public enum WorkoutTypes
     {
         /// <summary>
@@ -88,6 +91,9 @@ namespace GYM_MODELS.Enums.Workout
         /// </summary>
         YogaAndPilates = 15
     }
+
+    [EnumGroup("Workout")]
+    [EnumTitle("Workout Goals")]
     public enum WorkoutGoals
     {
         /// <summary>
