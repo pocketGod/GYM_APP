@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GYM_MODELS.Settings.Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace GYM_MODELS.Enums.Common
 {
+    [EnumGroup("General")]
+    [EnumTitle("Difficulty Levels")]
     public enum DifficultyLevels
     {
         /// <summary>
@@ -24,6 +27,8 @@ namespace GYM_MODELS.Enums.Common
         Advanced = 2
     }
 
+    [EnumGroup("General")]
+    [EnumTitle("Measurement Units")]
     public enum MeasurementUnits
     {
         /// <summary>

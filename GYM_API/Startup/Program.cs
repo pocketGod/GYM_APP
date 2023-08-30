@@ -7,7 +7,11 @@ using MongoDB.Driver;
 var builder = WebApplication.CreateBuilder(args);
 
 // Dependency Injections
+// Managers
 builder.Services.AddScoped<WorkoutManager>();
+builder.Services.AddScoped<PropertiesManager>();
+// Services
+builder.Services.AddScoped<PropertiesService>();
 builder.Services.AddScoped<ExerciseService>();
 builder.Services.AddScoped<WorkoutService>();
 

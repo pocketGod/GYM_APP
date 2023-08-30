@@ -28,3 +28,6 @@ C:\Users\Aviv\Desktop\newSchool\Projects\GYM_APP\GYM_LOGICS\obj\Debug\net6.0\GYM
 C:\Users\Aviv\Desktop\newSchool\Projects\GYM_APP\GYM_LOGICS\obj\Debug\net6.0\refint\GYM_LOGICS.dll
 C:\Users\Aviv\Desktop\newSchool\Projects\GYM_APP\GYM_LOGICS\obj\Debug\net6.0\GYM_LOGICS.pdb
 C:\Users\Aviv\Desktop\newSchool\Projects\GYM_APP\GYM_LOGICS\obj\Debug\net6.0\ref\GYM_LOGICS.dll
+C:\Users\Aviv\Desktop\newSchool\Projects\GYM_APP\GYM_LOGICS\bin\Debug\net6.0\GYM_LOGICS.xml
+C:\Users\Aviv\Desktop\newSchool\Projects\GYM_APP\GYM_LOGICS\bin\Debug\net6.0\GYM_MODELS.xml
+C:\Users\Aviv\Desktop\newSchool\Projects\GYM_APP\GYM_LOGICS\obj\Debug\net6.0\GYM_LOGICS.xml
