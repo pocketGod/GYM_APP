@@ -1,4 +1,6 @@
-﻿using GYM_MODELS.DB;
+﻿using GYM_LOGICS.Builders;
+using GYM_MODELS.Client;
+using GYM_MODELS.DB;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -12,16 +14,19 @@ namespace GYM_LOGICS.Services
     {
         private readonly string _collectionName = "Workouts";
         private readonly IMongoCollection<WorkoutDBRecord> _workouts;
+        private readonly WorkoutBuilder _workoutBuilder;
 
-        public WorkoutService(IMongoDatabase database)
+        public WorkoutService(IMongoDatabase database, WorkoutBuilder workoutBuilder)
         {
             _workouts = database.GetCollection<WorkoutDBRecord>(_collectionName);
+            _workoutBuilder = workoutBuilder;
         }
 
 
-        public List<WorkoutDBRecord> GetAllWorkouts()
+        public List<Workout> GetAllWorkouts()
         {
-            return _workouts.Find(exe => true).ToList();
+            var dbRecords = _workouts.Find(workout => true).ToList();
+            return dbRecords.Select(_workoutBuilder.Build).ToList();
         }
     }
 }

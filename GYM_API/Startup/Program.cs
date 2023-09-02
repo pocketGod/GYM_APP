@@ -1,3 +1,4 @@
+using GYM_LOGICS.Builders;
 using GYM_LOGICS.Managers;
 using GYM_LOGICS.Services;
 using GYM_MODELS.Settings;
@@ -14,6 +15,9 @@ builder.Services.AddScoped<PropertiesManager>();
 builder.Services.AddScoped<PropertiesService>();
 builder.Services.AddScoped<ExerciseService>();
 builder.Services.AddScoped<WorkoutService>();
+// Builders
+builder.Services.AddScoped<ExerciseBuilder>();
+builder.Services.AddScoped<WorkoutBuilder>();
 
 // MongoDB Injections
 var mongoDbSettings = builder.Configuration.GetSection("MongoDB").Get<MongoDBSettings>();
@@ -21,7 +25,7 @@ builder.Services.AddSingleton<IMongoClient>(serviceProvider => new MongoClient(m
 builder.Services.AddSingleton(serviceProvider => serviceProvider.GetRequiredService<IMongoClient>().GetDatabase(mongoDbSettings.DatabaseName));
 
 
-// General Builder Configuration
+// General Configuration
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
