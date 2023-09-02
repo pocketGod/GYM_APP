@@ -1,6 +1,10 @@
 # Ignore .vs folder at the root level
 .vs/
 
+# Ignore any files in /bin and /obj Folders
+**/bin/*
+**/obj/*
+
 # Ignore bin and obj folders in all direct subfolders with the GYM prefix
 GYM_*/bin/
 GYM_*/obj/
