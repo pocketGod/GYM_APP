@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GYM_API.Controllers
 {
-    public class PropertiesController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class PropertiesController : ControllerBase
     {
         private readonly PropertiesManager _propertiesManager;
         public PropertiesController(PropertiesManager propertiesManager)
