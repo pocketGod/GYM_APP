@@ -18,8 +18,8 @@ namespace GYM_API.Middlewares
 
         public async Task Invoke(HttpContext context)
         {
-            // Skip middleware for the auth route
-            if (context.Request.Path.StartsWithSegments("/api/auth"))
+            // Skip middleware for the auth and the swagger initialization routes
+            if (context.Request.Path.StartsWithSegments("/api/auth") || context.Request.Path.StartsWithSegments("/swagger") || context.Request.Path.StartsWithSegments("/favicon.ico"))
             {
                 await _next(context);
                 return;
@@ -56,12 +56,14 @@ namespace GYM_API.Middlewares
                 return;
             }
 
+            context.Items["IsAuthorized"] = true;
             await _next(context);
         }
 
         private async Task SetUnauthorizedResponse(HttpContext context)
         {
             context.Response.StatusCode = 401;
+            context.Items["IsAuthorized"] = false;
             await context.Response.WriteAsync("Unauthorized");
         }
 

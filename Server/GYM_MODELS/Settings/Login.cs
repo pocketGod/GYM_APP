@@ -11,6 +11,12 @@ namespace GYM_MODELS.Settings
         public string Username { get; set; }
         public string Password { get; set; }
     }
+    public class LoginResult
+    {
+        public string Token { get; set; }
+        public string Error { get; set; }
+        public bool IsSuccess => !string.IsNullOrEmpty(Token);
+    }
     public class SignUpModel
     {
     }

@@ -7,7 +7,7 @@ namespace GYM_API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PropertiesController : ControllerBase
+    public class PropertiesController : SecureController
     {
         private readonly PropertiesManager _propertiesManager;
         public PropertiesController(PropertiesManager propertiesManager)

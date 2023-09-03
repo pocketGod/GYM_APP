@@ -3,6 +3,7 @@ using GYM_LOGICS.Builders;
 using GYM_LOGICS.Managers;
 using GYM_LOGICS.Services;
 using GYM_MODELS.Settings;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
 
@@ -11,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Dependency Injections
 // Services
+builder.Services.AddScoped<JWTService>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<PropertiesService>();
 builder.Services.AddScoped<ExerciseService>();
@@ -30,9 +32,9 @@ builder.Services.AddSingleton(builder.Configuration.GetSection("JwtSettings").Ge
 // Swagger Auth 
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new() { Title = "My API", Version = "v1" });
+    c.SwaggerDoc("v1", new() { Title = "GYM API", Version = "v1" });
 
-    // Add JWT Authentication
+    // JWT Authentication
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,

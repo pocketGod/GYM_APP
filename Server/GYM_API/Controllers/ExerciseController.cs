@@ -1,4 +1,5 @@
 ﻿
+using GYM_API.Controllers;
 using GYM_LOGICS.Managers;
 using GYM_MODELS.Client;
 using GYM_MODELS.DB;
@@ -7,10 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GYM_LOGICS.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
-    public class ExerciseController : ControllerBase
+    public class ExerciseController : SecureController
     {
         private readonly WorkoutManager _workoutManager;
 

@@ -8,7 +8,7 @@ namespace GYM_API.Controllers
 
     [ApiController]
     [Route("api/[controller]")]
-    public class WorkoutController : ControllerBase
+    public class WorkoutController : SecureController
     {
         private readonly WorkoutManager _workoutManager;
 
