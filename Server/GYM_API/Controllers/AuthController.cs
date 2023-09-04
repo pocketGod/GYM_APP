@@ -20,5 +20,11 @@ namespace GYM_API.Controllers
         {
             return Ok(_authService.Login(loginForm));
         }
+
+        [HttpPost("Sign_Up")]
+        public ActionResult Sign_Up([FromBody] RegisterModel registerModel)
+        {
+            return Ok(_authService.Register(registerModel));
+        }
     }
 }
