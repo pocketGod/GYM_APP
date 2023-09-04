@@ -2,6 +2,8 @@
 using GYM_MODELS.Client;
 using GYM_MODELS.DB;
 using GYM_MODELS.Enums.Anatomy;
+using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
 
 namespace GYM_LOGICS.Services
@@ -11,17 +13,36 @@ namespace GYM_LOGICS.Services
         private readonly string _collectionName = "Excercises";
         private readonly IMongoCollection<ExerciseDBRecord> _exercises;
         private readonly ExerciseBuilder _exeBuilder;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ExerciseService(IMongoDatabase database, ExerciseBuilder exeBuilder)
+        public ExerciseService(
+            IMongoDatabase database, 
+            ExerciseBuilder exeBuilder,
+            IHttpContextAccessor httpContextAccessor
+            )
         {
             _exercises = database.GetCollection<ExerciseDBRecord>(_collectionName); //temporary - only for development convinience
             _exeBuilder = exeBuilder;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public List<Exercise> GetAllExercises()
         {
             var dbRecords = _exercises.Find(exe => true).ToList();
             return dbRecords.Select(_exeBuilder.Build).ToList();
+        }
+
+        public List<Exercise> GetExercisesByUserId(string userId = null)
+        {
+            if (!userId.IsNullOrEmpty()) //get connected user's data
+            {
+                string connectedUserId = _httpContextAccessor.HttpContext.Items["UserId"] as string;
+                return null;
+            }
+
+            //get by argument userId
+
+            return null;
         }
 
         public ExerciseByMuscleResponse GetExercisesByTargetMuscle(Muscles targetMuscle)
