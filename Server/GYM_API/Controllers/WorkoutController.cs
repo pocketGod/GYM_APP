@@ -1,4 +1,5 @@
 ﻿using GYM_LOGICS.Managers;
+using GYM_MODELS.Client.WorkoutBuilder;
 using GYM_MODELS.DB;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,14 @@ namespace GYM_API.Controllers
         [Route("GetAllWorkouts")]
         public ActionResult<List<WorkoutDBRecord>> GetAllWorkouts()
         {
-            return Ok(_workoutManager.GetAllWorkouts());
+            return Ok(_workoutManager.GetAllMyWorkouts());
+        }
+
+        [HttpGet]
+        [Route("GetWorkoutBuilderProperties")]
+        public ActionResult<WorkoutBuilderPropertiesResponse> GetWorkoutBuilderProperties()
+        {
+            return Ok(_workoutManager.GetWorkoutBuilderProperties());
         }
     }
 

@@ -21,7 +21,7 @@ namespace GYM_LOGICS.Services
             IHttpContextAccessor httpContextAccessor
             )
         {
-            _exercises = database.GetCollection<ExerciseDBRecord>(_collectionName); //temporary - only for development convinience
+            _exercises = database.GetCollection<ExerciseDBRecord>(_collectionName);
             _exeBuilder = exeBuilder;
             _httpContextAccessor = httpContextAccessor;
         }
@@ -30,19 +30,6 @@ namespace GYM_LOGICS.Services
         {
             var dbRecords = _exercises.Find(exe => true).ToList();
             return dbRecords.Select(_exeBuilder.Build).ToList();
-        }
-
-        public List<Exercise> GetExercisesByUserId(string userId = null)
-        {
-            if (!userId.IsNullOrEmpty()) //get connected user's data
-            {
-                string connectedUserId = _httpContextAccessor.HttpContext.Items["UserId"] as string;
-                return null;
-            }
-
-            //get by argument userId
-
-            return null;
         }
 
         public ExerciseByMuscleResponse GetExercisesByTargetMuscle(Muscles targetMuscle)

@@ -10,5 +10,6 @@ namespace GYM_MODELS.Settings
     {
         public string SecretKey { get; set; }
         public int TokenExpirationMinutes { get; set; }
+        public bool IsAuthenticationActive { get; set; }
     }
 }
