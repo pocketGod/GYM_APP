@@ -1,5 +1,5 @@
 ﻿using GYM_LOGICS.Managers;
-using GYM_MODELS.Client.WorkoutBuilder;
+using GYM_MODELS.Client.WorkoutCreator;
 using GYM_MODELS.DB;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,10 +27,24 @@ namespace GYM_API.Controllers
         }
 
         [HttpGet]
-        [Route("GetWorkoutBuilderProperties")]
-        public ActionResult<WorkoutBuilderPropertiesResponse> GetWorkoutBuilderProperties()
+        [Route("GetWorkoutCreatorProperties")]
+        public ActionResult<WorkoutCreatorPropertiesResponse> GetWorkoutCreatorProperties()
         {
-            return Ok(_workoutManager.GetWorkoutBuilderProperties());
+            return Ok(_workoutManager.GetWorkoutCreatorProperties());
+        }
+
+        [HttpPost]
+        [Route("AddNewWorkoutToCollection")]
+        public ActionResult<bool> AddNewWorkoutToCollection([FromBody] NewWorkoutSchema newWorkout)
+        {
+            return Ok(_workoutManager.AddNewWorkoutToCollection(newWorkout));
+        }
+
+        [HttpPost]
+        [Route("EditWorkoutInCollection")]
+        public ActionResult<bool> EditWorkoutInCollection([FromBody] NewWorkoutSchema newWorkout)
+        {
+            return Ok(_workoutManager.EditWorkoutInCollection(newWorkout));
         }
     }
 

@@ -1,7 +1,7 @@
 ﻿using GYM_LOGICS.Builders;
 using GYM_LOGICS.Extensions;
 using GYM_MODELS.Client;
-using GYM_MODELS.Client.WorkoutBuilder;
+using GYM_MODELS.Client.WorkoutCreator;
 using GYM_MODELS.DB;
 using GYM_MODELS.Settings.Properties;
 using Microsoft.AspNetCore.Http;
@@ -44,10 +44,12 @@ namespace GYM_LOGICS.Services
         {
             string connectedUserId = _httpContextAccessor.HttpContext.Items["UserId"] as string;
             var dbRecords = _workouts.Find(workout => workout.OwnerUserId == connectedUserId).ToList();
-            return dbRecords.Select(_workoutBuilder.Build).ToList();
+            return dbRecords.Select(_workoutBuilder.BuildForClient).ToList();
         }
 
-        public WorkoutBuilderPropertiesResponse GetWorkoutBuildingProperties()
+
+
+        public WorkoutCreatorPropertiesResponse GetWorkoutCreationProperties()
         {
             List<EnumPropertiesGroupModel> enums = _propertiesService.GetAllEnums();
 
@@ -57,7 +59,7 @@ namespace GYM_LOGICS.Services
 
             List<Dictionary<string, List<Exercise>>> exercises = _exerciseService.GetAllExercises().GroupExercisesByTargetMuscle();
 
-            WorkoutBuilderPropertiesResponse response = new()
+            WorkoutCreatorPropertiesResponse response = new()
             {
                 Exercises= exercises,
                 WorkoutProperties = workoutEnums
@@ -67,8 +69,64 @@ namespace GYM_LOGICS.Services
             return response;
         }
 
+        public bool AddNewWorkoutToCollection(NewWorkoutSchema newWorkout)
+        {
+            try
+            {
+
+                if (!newWorkout.IsNewWorkoutValid()) return false;
+
+                string connectedUserId = _httpContextAccessor.HttpContext.Items["UserId"].ToString();
+
+                if (string.IsNullOrEmpty(connectedUserId))
+                {
+                    throw new InvalidOperationException("User ID is null or empty. Cannot proceed with adding the workout.");
+                }
+
+                WorkoutDBRecord workoutDBRecord = _workoutBuilder.BuildNewWorkout(newWorkout, connectedUserId);
+
+                _workouts.InsertOne(workoutDBRecord);
+                // If the record was not inserted in the DB successfully than the code will jump to the catch block
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool EditWorkoutInCollection(NewWorkoutSchema newWorkout)
+        {
+            try
+            {
+                if (!newWorkout.IsNewWorkoutValid(false)) return false;
+
+                string connectedUserId = _httpContextAccessor.HttpContext.Items["UserId"].ToString();
+
+                if (string.IsNullOrEmpty(connectedUserId))
+                {
+                    throw new InvalidOperationException("User ID is null or empty. Cannot proceed with editing the workout.");
+                }
+
+                WorkoutDBRecord workoutDBRecord = _workoutBuilder.BuildNewWorkout(newWorkout, connectedUserId);
+
+                FilterDefinition<WorkoutDBRecord> filter = Builders<WorkoutDBRecord>.Filter.Eq(w => w._id, newWorkout.WorkoutId) &
+                    Builders<WorkoutDBRecord>.Filter.Eq(w => w.OwnerUserId, connectedUserId);
+
+                ReplaceOneResult result = _workouts.ReplaceOne(filter, workoutDBRecord);
+
+                // Check if a document was actually modified
+                return result.ModifiedCount > 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
 
 
-     
+
+
     }
 }

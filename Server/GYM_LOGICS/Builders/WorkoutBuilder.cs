@@ -1,5 +1,6 @@
 ﻿using GYM_LOGICS.Services;
 using GYM_MODELS.Client;
+using GYM_MODELS.Client.WorkoutCreator;
 using GYM_MODELS.DB;
 
 namespace GYM_LOGICS.Builders
@@ -12,7 +13,7 @@ namespace GYM_LOGICS.Builders
             _exerciseService = exerciseService;
         }
 
-        public Workout Build(WorkoutDBRecord dbRecord)
+        public Workout BuildForClient(WorkoutDBRecord dbRecord)
         {
             if (dbRecord == null || dbRecord.Exercises == null)
             {
@@ -41,6 +42,26 @@ namespace GYM_LOGICS.Builders
             };
 
             return clientModel;
+        }
+
+        public WorkoutDBRecord BuildNewWorkout(NewWorkoutSchema newWorkout, string userId)
+        {
+            return new WorkoutDBRecord
+            {
+                Name = newWorkout.Name,
+                WorkoutType = newWorkout.WorkoutType,
+                OwnerUserId = userId,
+                Exercises = newWorkout.Exercises.Select(e => new InternalWorkoutExerciseDBRecord
+                {
+                    ID = e.ID,
+                    Sets = e.Sets.Select(s => new ExerciseSetDBRecord
+                    {
+                        Order = s.Order,
+                        Reps = s.Reps,
+                        SetType = s.SetType
+                    }).ToList()
+                }).ToList()
+            };
         }
     }
 }
