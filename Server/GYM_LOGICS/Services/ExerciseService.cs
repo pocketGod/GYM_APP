@@ -25,7 +25,7 @@ namespace GYM_LOGICS.Services
 
         public List<Exercise> GetAllExercises()
         {
-            var dbRecords = _exercises.Find(exe => true).ToList();
+            List<ExerciseDBRecord> dbRecords = _exercises.Find(exe => true).ToList();
             return dbRecords.Select(_exeBuilder.Build).ToList();
         }
 
@@ -58,7 +58,7 @@ namespace GYM_LOGICS.Services
 
         public Exercise GetFullExerciseByID(string exeID)
         {
-            var exe = _exercises.Find(exe => exe._id == exeID).FirstOrDefault();
+            ExerciseDBRecord exe = _exercises.Find(exe => exe._id == exeID).FirstOrDefault();
 
             if (exe == null)
             {

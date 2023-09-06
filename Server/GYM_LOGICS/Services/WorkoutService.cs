@@ -42,7 +42,9 @@ namespace GYM_LOGICS.Services
 
         public List<Workout> GetAllMyWorkouts()
         {
-            string connectedUserId = _httpContextAccessor.HttpContext.Items["UserId"] as string;
+
+            string connectedUserId = _httpContextAccessor.HttpContext.Items["UserId"].ToString();
+
             List<WorkoutDBRecord> dbRecords = _workouts.Find(workout => workout.OwnerUserId == connectedUserId).ToList();
             return dbRecords.Select(_workoutBuilder.BuildForClient).ToList();
         }
@@ -78,11 +80,6 @@ namespace GYM_LOGICS.Services
 
                 string connectedUserId = _httpContextAccessor.HttpContext.Items["UserId"].ToString();
 
-                if (string.IsNullOrEmpty(connectedUserId))
-                {
-                    throw new InvalidOperationException("User ID is null or empty. Cannot proceed with adding the workout.");
-                }
-
                 WorkoutDBRecord workoutDBRecord = _workoutBuilder.BuildNewWorkout(newWorkout, connectedUserId);
 
                 _workouts.InsertOne(workoutDBRecord);
@@ -103,11 +100,6 @@ namespace GYM_LOGICS.Services
                 if (!newWorkout.IsNewWorkoutValid(false)) return false;
 
                 string connectedUserId = _httpContextAccessor.HttpContext.Items["UserId"].ToString();
-
-                if (string.IsNullOrEmpty(connectedUserId))
-                {
-                    throw new InvalidOperationException("User ID is null or empty. Cannot proceed with editing the workout.");
-                }
 
                 WorkoutDBRecord originalWorkout = _workouts.Find(w => w._id == newWorkout.WorkoutId && w.OwnerUserId == connectedUserId).FirstOrDefault();
 

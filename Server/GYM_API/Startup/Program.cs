@@ -24,7 +24,7 @@ builder.Services.AddScoped<PropertiesManager>();
 builder.Services.AddScoped<ExerciseBuilder>();
 builder.Services.AddScoped<WorkoutBuilder>();
 // MongoDB
-var mongoDbSettings = builder.Configuration.GetSection("MongoDB").Get<MongoDBSettings>();
+MongoDBSettings? mongoDbSettings = builder.Configuration.GetSection("MongoDB").Get<MongoDBSettings>();
 builder.Services.AddSingleton<IMongoClient>(serviceProvider => new MongoClient(mongoDbSettings.ConnectionString));
 builder.Services.AddSingleton(serviceProvider => serviceProvider.GetRequiredService<IMongoClient>().GetDatabase(mongoDbSettings.DatabaseName));
 // JWT
@@ -64,7 +64,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 // Middlewares
 app.UseMiddleware<TokenMiddleware>();
