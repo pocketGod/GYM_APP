@@ -18,7 +18,7 @@ namespace GYM_LOGICS.Extensions
             }
 
             // check if not updating an existing workout and if a workout id is set
-            if (!isNewWorkout && !string.IsNullOrEmpty(schema.WorkoutId))
+            if (!isNewWorkout && string.IsNullOrEmpty(schema.WorkoutId))
             {
                 return false;
             }

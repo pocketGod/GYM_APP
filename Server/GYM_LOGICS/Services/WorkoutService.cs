@@ -109,7 +109,13 @@ namespace GYM_LOGICS.Services
                     throw new InvalidOperationException("User ID is null or empty. Cannot proceed with editing the workout.");
                 }
 
+                WorkoutDBRecord originalWorkout = _workouts.Find(w => w._id == newWorkout.WorkoutId && w.OwnerUserId == connectedUserId).FirstOrDefault();
+
+                if (originalWorkout == null) return false;
+
                 WorkoutDBRecord workoutDBRecord = _workoutBuilder.BuildNewWorkout(newWorkout, connectedUserId);
+
+                workoutDBRecord._id = originalWorkout._id;
 
                 FilterDefinition<WorkoutDBRecord> filter = Builders<WorkoutDBRecord>.Filter.Eq(w => w._id, newWorkout.WorkoutId) &
                     Builders<WorkoutDBRecord>.Filter.Eq(w => w.OwnerUserId, connectedUserId);
