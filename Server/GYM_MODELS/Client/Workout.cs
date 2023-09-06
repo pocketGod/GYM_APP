@@ -1,10 +1,5 @@
 ﻿using GYM_MODELS.DB;
 using GYM_MODELS.Enums.Workout;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GYM_MODELS.Client
 {
@@ -22,5 +17,8 @@ namespace GYM_MODELS.Client
         public Exercise Exercise { get; set; }
         public List<ExerciseSetDBRecord> Sets { get; set; }
     }
+
+
+
 
 }

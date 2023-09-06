@@ -1,5 +1,6 @@
 ﻿using GYM_LOGICS.Services;
 using GYM_MODELS.Client;
+using GYM_MODELS.Client.WorkoutCreator;
 using GYM_MODELS.Enums.Anatomy;
 
 namespace GYM_LOGICS.Managers
@@ -15,21 +16,70 @@ namespace GYM_LOGICS.Managers
         }
 
 
+        #region Data Retrieval Methods
+
+        /// <summary>
+        /// Asynchronously retrieves exercises based on the target muscle group.
+        /// </summary>
+        /// <param name="targetMuscle">The target muscle group for filtering exercises.</param>
+        /// <returns>A Task containing a response object with exercises filtered by the target muscle.</returns>
         public Task<ExerciseByMuscleResponse> GetExercisesByTargetMuscle(Muscles targetMuscle)
         {
             return Task.FromResult(_exerciseService.GetExercisesByTargetMuscle(targetMuscle));
         }
 
 
-        #region temp for development convinience
-        public Task<List<Workout>> GetAllWorkouts()
+        /// <summary>
+        /// Asynchronously retrieves all workouts associated with the current user.
+        /// </summary>
+        /// <returns>A Task containing a list of all workouts for the current user.</returns>
+        public Task<List<Workout>> GetAllMyWorkouts()
         {
-            return Task.FromResult(_workoutService.GetAllWorkouts());
+            return Task.FromResult(_workoutService.GetAllMyWorkouts());
         }
+
+        /// <summary>
+        /// Asynchronously retrieves all available exercises.
+        /// </summary>
+        /// <returns>A Task containing a list of all exercises.</returns>
         public Task<List<Exercise>> GetAllExercises(){
 
             return Task.FromResult(_exerciseService.GetAllExercises());
         }
+
+        #endregion
+
+
+        #region Workout Creator Methods
+
+        /// <summary>
+        /// Asynchronously retrieves properties required for creating a workout.
+        /// </summary>
+        /// <returns>A Task containing a response object with necessary properties for creating a workout.</returns>
+        public Task<WorkoutCreatorPropertiesResponse> GetWorkoutCreatorProperties()
+        {
+            return Task.FromResult(_workoutService.GetWorkoutCreationProperties());
+        }
+
+
+        /// <summary>
+        /// Asynchronously adds a new workout to the DB
+        /// </summary>
+        /// <returns>A Task containing a bool indicating wether the new record was updated in the DB</returns>
+        public Task<bool> AddNewWorkoutToCollection(NewWorkoutSchema newWorkout)
+        {
+            return Task.FromResult(_workoutService.AddNewWorkoutToCollection(newWorkout));
+        }
+
+        /// <summary>
+        /// Asynchronously edits a workout in the DB
+        /// </summary>
+        /// <returns>A Task containing a bool indicating wether the new record was updated in the DB</returns>
+        public Task<bool> EditWorkoutInCollection(NewWorkoutSchema newWorkout)
+        {
+            return Task.FromResult(_workoutService.EditWorkoutInCollection(newWorkout));
+        }
+
         #endregion
     }
 }

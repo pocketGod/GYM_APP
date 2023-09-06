@@ -21,18 +21,15 @@ namespace GYM_LOGICS.Services
 
         public string GenerateJwtToken(string username)
         {
-            var claims = new[] {
-            new Claim(JwtRegisteredClaimNames.Sub, username),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            Claim[] claims = new[] {
+                new Claim(JwtRegisteredClaimNames.Sub, username),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
-            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtSettings.SecretKey));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            SymmetricSecurityKey key = new(Encoding.ASCII.GetBytes(_jwtSettings.SecretKey));
+            SigningCredentials creds = new (key, SecurityAlgorithms.HmacSha256);
 
-            var token = new JwtSecurityToken(
-                claims: claims,
-                expires: DateTime.Now.AddMinutes(_jwtSettings.TokenExpirationMinutes),
-                signingCredentials: creds);
+            JwtSecurityToken token = new(claims: claims, expires: DateTime.Now.AddMinutes(_jwtSettings.TokenExpirationMinutes), signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }

@@ -13,49 +13,33 @@ namespace GYM_LOGICS.Services
         private readonly string _collectionName = "Excercises";
         private readonly IMongoCollection<ExerciseDBRecord> _exercises;
         private readonly ExerciseBuilder _exeBuilder;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public ExerciseService(
             IMongoDatabase database, 
-            ExerciseBuilder exeBuilder,
-            IHttpContextAccessor httpContextAccessor
+            ExerciseBuilder exeBuilder
             )
         {
-            _exercises = database.GetCollection<ExerciseDBRecord>(_collectionName); //temporary - only for development convinience
+            _exercises = database.GetCollection<ExerciseDBRecord>(_collectionName);
             _exeBuilder = exeBuilder;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         public List<Exercise> GetAllExercises()
         {
-            var dbRecords = _exercises.Find(exe => true).ToList();
+            List<ExerciseDBRecord> dbRecords = _exercises.Find(exe => true).ToList();
             return dbRecords.Select(_exeBuilder.Build).ToList();
-        }
-
-        public List<Exercise> GetExercisesByUserId(string userId = null)
-        {
-            if (!userId.IsNullOrEmpty()) //get connected user's data
-            {
-                string connectedUserId = _httpContextAccessor.HttpContext.Items["UserId"] as string;
-                return null;
-            }
-
-            //get by argument userId
-
-            return null;
         }
 
         public ExerciseByMuscleResponse GetExercisesByTargetMuscle(Muscles targetMuscle)
         {
 
-            // Get exercises where TargetMuscle matches the input
-            var targetMuscleExercises = _exercises
+            // exercises where TargetMuscle matches the input
+            IEnumerable<Exercise> targetMuscleExercises = _exercises
                 .Find(exe => exe.TargetMuscle == targetMuscle)
                 .ToList()
                 .Select(_exeBuilder.Build);
 
-            // Get exercises where targetMuscle is in IncludedMuscles
-            var includedMuscleExercises = _exercises
+            // exercises where targetMuscle is in IncludedMuscles
+            List<Exercise> includedMuscleExercises = _exercises
                 .Find(exe => exe.IncludedMuscles.Contains(targetMuscle))
                 .ToList()
                 .Select(_exeBuilder.Build)
@@ -74,7 +58,7 @@ namespace GYM_LOGICS.Services
 
         public Exercise GetFullExerciseByID(string exeID)
         {
-            var exe = _exercises.Find(exe => exe._id == exeID).FirstOrDefault();
+            ExerciseDBRecord exe = _exercises.Find(exe => exe._id == exeID).FirstOrDefault();
 
             if (exe == null)
             {

@@ -93,6 +93,86 @@ namespace GYM_MODELS.Enums.Workout
     }
 
     [EnumGroup("Workout")]
+    [EnumTitle("Workout Cycles")]
+    public enum WorkoutCycles
+    {
+        /// <summary>
+        /// 1 Workout for each cycle
+        /// </summary>
+        Full = 0,
+
+        /// <summary>
+        /// 2 Different Workouts in a cycle
+        /// </summary>
+        AB = 1,
+
+        /// <summary>
+        /// 3 Different Workouts in a cycle
+        /// </summary>
+        ABC = 2,
+
+        /// <summary>
+        /// 4 Different Workouts in a cycle
+        /// </summary>
+        ABCD = 3,
+
+        /// <summary>
+        /// 5 Different Workouts in a cycle
+        /// </summary>
+        ABCDE = 4,
+
+        /// <summary>
+        /// 6 Different Workouts in a cycle
+        /// </summary>
+        ABCDEF = 5,
+
+        /// <summary>
+        /// A split between upper and lower body workouts
+        /// </summary>
+        UpperLowerSplit = 6,
+
+        /// <summary>
+        /// Workouts focusing only on specific muscle groups
+        /// </summary>
+        MuscleGroupFocus = 7,
+
+        /// <summary>
+        /// Workouts that alternate between strength and cardio
+        /// </summary>
+        StrengthCardio = 8,
+
+        /// <summary>
+        /// A recovery workout in the cycle
+        /// </summary>
+        Recovery = 9,
+
+        /// <summary>
+        /// A cycle that focuses on endurance
+        /// </summary>
+        Endurance = 10,
+
+        /// <summary>
+        /// A cycle that focuses on flexibility
+        /// </summary>
+        Flexibility = 11,
+
+        /// <summary>
+        /// A cycle that focuses on high-intensity interval training
+        /// </summary>
+        HIIT = 12,
+
+        /// <summary>
+        /// A cycle focused on plyometric exercises
+        /// </summary>
+        Plyometrics = 13,
+
+        /// <summary>
+        /// A cycle focused on core strengthening
+        /// </summary>
+        CoreStrengthening = 14
+    }
+
+    [EnumGroup("Workout")]
     [EnumTitle("Workout Goals")]
     public enum WorkoutGoals
     {

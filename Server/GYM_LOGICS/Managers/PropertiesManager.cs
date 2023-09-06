@@ -19,6 +19,10 @@ namespace GYM_LOGICS.Managers
             _propertiesService = propertiesSeervice;
         }
 
+        /// <summary>
+        /// Asynchronously retrieves all available properties
+        /// </summary>
+        /// <returns>A Task containing a list of all Enum-properties-group-model</returns>
         public List<EnumPropertiesGroupModel> GetEnumsProperties()
         {
             return _propertiesService.GetAllEnums();

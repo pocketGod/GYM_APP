@@ -12,7 +12,7 @@ namespace GYM_LOGICS.Builders
     {
         public Exercise Build(ExerciseDBRecord dbRecord)
         {
-            var clientModel = new Exercise
+            Exercise clientModel = new()
             {
                 Id = dbRecord._id,
                 Name = dbRecord.Name,

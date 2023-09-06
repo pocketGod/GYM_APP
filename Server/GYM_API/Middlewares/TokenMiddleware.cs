@@ -20,10 +20,18 @@ namespace GYM_API.Middlewares
         
         public async Task Invoke(HttpContext context)
         {
+            // If authentication is disabled (for debugging purposes)
+            if (!_jwtSettings.IsAuthenticationActive)
+            {
+                await _next(context);
+                return;
+            }
+
             // Skip middleware for the auth and the swagger initialization routes
             if (context.Request.Path.StartsWithSegments("/api/auth") ||
                 context.Request.Path.StartsWithSegments("/swagger") ||
-                context.Request.Path.StartsWithSegments("/favicon.ico"))
+                context.Request.Path.StartsWithSegments("/favicon.ico") ||
+                context.Request.Path.StartsWithSegments("/api/Resources/swagger-customization.js"))
             {
                 await _next(context);
                 return;
@@ -35,10 +43,7 @@ namespace GYM_API.Middlewares
             if (authorizationHeader != null)
             {
                 string[] parts = authorizationHeader.Split(" ");
-                if (parts.Length > 1)
-                {
-                    token = parts.Last();
-                }
+                token = parts.Last();
             }
 
             byte[] key = Encoding.UTF8.GetBytes(_jwtSettings.SecretKey);
