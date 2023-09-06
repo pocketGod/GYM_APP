@@ -30,7 +30,8 @@ namespace GYM_API.Middlewares
             // Skip middleware for the auth and the swagger initialization routes
             if (context.Request.Path.StartsWithSegments("/api/auth") ||
                 context.Request.Path.StartsWithSegments("/swagger") ||
-                context.Request.Path.StartsWithSegments("/favicon.ico"))
+                context.Request.Path.StartsWithSegments("/favicon.ico") ||
+                context.Request.Path.StartsWithSegments("/api/Resources/swagger-customization.js"))
             {
                 await _next(context);
                 return;

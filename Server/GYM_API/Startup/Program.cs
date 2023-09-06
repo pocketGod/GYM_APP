@@ -1,12 +1,13 @@
+using GYM_API.Controllers.Base;
 using GYM_API.Middlewares;
 using GYM_LOGICS.Builders;
 using GYM_LOGICS.Managers;
 using GYM_LOGICS.Services;
 using GYM_MODELS.Settings;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
-
+using System.Reflection;
+using static GYM_MODELS.Settings.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,7 +33,13 @@ builder.Services.AddSingleton(builder.Configuration.GetSection("JwtSettings").Ge
 // Swagger Auth 
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new() { Title = "GYM API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "GYM API", Version = "v1" });
+
+    // XML Comments and Annotations
+    string xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+    c.EnableAnnotations();
 
     // JWT Authentication
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -58,11 +65,15 @@ builder.Services.AddSwaggerGen(c =>
             new string[] { }
         }
     });
+
+
 });
+
 // General Configuration
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
+
 
 WebApplication app = builder.Build();
 
@@ -72,13 +83,30 @@ app.UseMiddleware<TokenMiddleware>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwagger(c =>
+    {
+        c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
+        {
+            var orderedTags = new List<OpenApiTag>
+        {
+            new OpenApiTag { Name = nameof(ApiGroupNames.Authentication), Description = "Requests for user authentication" },
+            new OpenApiTag { Name = nameof(ApiGroupNames.DataRetrieval), Description = "Requests for data retrieval" },
+            new OpenApiTag { Name = nameof(ApiGroupNames.WorkoutCreation), Description = "Requests for creating workouts" },
+            new OpenApiTag { Name = nameof(ApiGroupNames.Misc), Description = "Miscellaneous requests" },
+        };
+            swaggerDoc.Tags = orderedTags;
+        });
+    });
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "GYM API v1");
+    });
 }
 
 
 // General App Configuration
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
