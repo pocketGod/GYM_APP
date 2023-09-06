@@ -79,6 +79,7 @@ namespace GYM_LOGICS.Managers
         {
             return Task.FromResult(_workoutService.EditWorkoutInCollection(newWorkout));
         }
+
         #endregion
     }
 }

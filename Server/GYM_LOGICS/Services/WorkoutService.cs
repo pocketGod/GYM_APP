@@ -43,7 +43,7 @@ namespace GYM_LOGICS.Services
         public List<Workout> GetAllMyWorkouts()
         {
             string connectedUserId = _httpContextAccessor.HttpContext.Items["UserId"] as string;
-            var dbRecords = _workouts.Find(workout => workout.OwnerUserId == connectedUserId).ToList();
+            List<WorkoutDBRecord> dbRecords = _workouts.Find(workout => workout.OwnerUserId == connectedUserId).ToList();
             return dbRecords.Select(_workoutBuilder.BuildForClient).ToList();
         }
 

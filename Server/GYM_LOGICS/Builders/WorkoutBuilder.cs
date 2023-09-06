@@ -20,12 +20,12 @@ namespace GYM_LOGICS.Builders
                 return null;
             }
 
-            var exerciseIds = dbRecord.Exercises.Select(e => e.ID).ToList();
-            var exercises = exerciseIds.Select(id => _exerciseService.GetFullExerciseByID(id))
+            List<string> exerciseIds = dbRecord.Exercises.Select(e => e.ID).ToList();
+            Dictionary<string, Exercise> exercises = exerciseIds.Select(id => _exerciseService.GetFullExerciseByID(id))
                                         .Where(ex => ex != null)
                                         .ToDictionary(ex => ex.Id, ex => ex);
 
-            var clientModel = new Workout
+            Workout clientModel = new()
             {
                 Id = dbRecord._id,
                 Name = dbRecord.Name,
@@ -58,7 +58,8 @@ namespace GYM_LOGICS.Builders
                     {
                         Order = s.Order,
                         Reps = s.Reps,
-                        SetType = s.SetType
+                        SetType = s.SetType,
+                        MeasureUnit = GYM_MODELS.Enums.Common.MeasurementUnits.Kilograms
                     }).ToList()
                 }).ToList()
             };

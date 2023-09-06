@@ -13,17 +13,14 @@ namespace GYM_LOGICS.Services
         private readonly string _collectionName = "Excercises";
         private readonly IMongoCollection<ExerciseDBRecord> _exercises;
         private readonly ExerciseBuilder _exeBuilder;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public ExerciseService(
             IMongoDatabase database, 
-            ExerciseBuilder exeBuilder,
-            IHttpContextAccessor httpContextAccessor
+            ExerciseBuilder exeBuilder
             )
         {
             _exercises = database.GetCollection<ExerciseDBRecord>(_collectionName);
             _exeBuilder = exeBuilder;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         public List<Exercise> GetAllExercises()
@@ -35,14 +32,14 @@ namespace GYM_LOGICS.Services
         public ExerciseByMuscleResponse GetExercisesByTargetMuscle(Muscles targetMuscle)
         {
 
-            // Get exercises where TargetMuscle matches the input
-            var targetMuscleExercises = _exercises
+            // exercises where TargetMuscle matches the input
+            IEnumerable<Exercise> targetMuscleExercises = _exercises
                 .Find(exe => exe.TargetMuscle == targetMuscle)
                 .ToList()
                 .Select(_exeBuilder.Build);
 
-            // Get exercises where targetMuscle is in IncludedMuscles
-            var includedMuscleExercises = _exercises
+            // exercises where targetMuscle is in IncludedMuscles
+            List<Exercise> includedMuscleExercises = _exercises
                 .Find(exe => exe.IncludedMuscles.Contains(targetMuscle))
                 .ToList()
                 .Select(_exeBuilder.Build)
