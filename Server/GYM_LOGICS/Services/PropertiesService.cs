@@ -22,11 +22,11 @@ namespace GYM_LOGICS.Services
         {
             Assembly _gymModelsEnumAssembly = typeof(WorkoutGoals).Assembly; //example enum to select the relevant assembly (since this is a multi csproj solution)
 
-            var enumTypes = _gymModelsEnumAssembly.GetTypes()
+            IEnumerable<Type> enumTypes = _gymModelsEnumAssembly.GetTypes()
                                     .Where(t => t.IsEnum && t.GetCustomAttribute<EnumGroupAttribute>() != null);
 
 
-            var groupedEnums = enumTypes.GroupBy(
+            List<EnumPropertiesGroupModel> groupedEnums = enumTypes.GroupBy(
                 e => e.GetCustomAttribute<EnumGroupAttribute>().GroupName,
                 e => e,
                 (key, enums) => new EnumPropertiesGroupModel
@@ -40,7 +40,7 @@ namespace GYM_LOGICS.Services
 
         private EnumPropertiesModel GetEnumModel(Type enumType)
         {
-            var enumTitle = enumType.GetCustomAttribute<EnumTitleAttribute>()?.Title ?? enumType.Name;
+            string? enumTitle = enumType.GetCustomAttribute<EnumTitleAttribute>()?.Title ?? enumType.Name;
 
             return new EnumPropertiesModel
             {
@@ -58,11 +58,11 @@ namespace GYM_LOGICS.Services
 
         private string GetEnumSummary(Type enumType, string name)
         {
-            var memberInfo = enumType.GetMember(name).FirstOrDefault();
+            MemberInfo memberInfo = enumType.GetMember(name).FirstOrDefault();
             if (memberInfo != null)
             {
-                var xmlPath = $"{memberInfo.DeclaringType.FullName}.{memberInfo.Name}";
-                var summaryElement = _gymModelsXmlDoc.XPathSelectElement($"/doc/members/member[@name='F:{xmlPath}']/summary");
+                string xmlPath = $"{memberInfo.DeclaringType.FullName}.{memberInfo.Name}";
+                XElement summaryElement = _gymModelsXmlDoc.XPathSelectElement($"/doc/members/member[@name='F:{xmlPath}']/summary");
 
                 return summaryElement?.Value.Trim() ?? string.Empty;
             }

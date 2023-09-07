@@ -86,6 +86,16 @@ namespace GYM_MODELS.Settings.Properties
         /// </summary>
         public string Summary { get; set; }
     }
+
+
+    public enum EnumGroups
+    {
+        Workout,
+        User,
+        General
+    }
+
+
     #endregion
 
 }

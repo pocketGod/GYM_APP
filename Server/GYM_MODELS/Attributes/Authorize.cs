@@ -9,7 +9,7 @@ namespace GYM_MODELS.Attributes
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var isAuthenticated = context.HttpContext.Items["IsAuthenticated"] as bool?;
+            bool? isAuthenticated = context.HttpContext.Items["IsAuthenticated"] as bool?;
             if (!isAuthenticated.HasValue || !isAuthenticated.Value)
             {
                 context.Result = new UnauthorizedResult();
