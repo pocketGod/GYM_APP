@@ -1,4 +1,5 @@
 ﻿using GYM_LOGICS.Services;
+using GYM_MODELS.Client.WorkoutCreator;
 using GYM_MODELS.Enums.Anatomy;
 using GYM_MODELS.Enums.Exercise;
 using GYM_MODELS.Settings.Properties;
@@ -14,9 +15,13 @@ namespace GYM_LOGICS.Managers
     public class PropertiesManager
     {
         private readonly PropertiesService _propertiesService;
-        public PropertiesManager(PropertiesService propertiesSeervice)
+        private readonly WorkoutService _workoutService;
+
+        public PropertiesManager(PropertiesService propertiesSeervice, WorkoutService workoutService)
         {
             _propertiesService = propertiesSeervice;
+            _workoutService = workoutService;
+
         }
 
         /// <summary>
@@ -26,6 +31,17 @@ namespace GYM_LOGICS.Managers
         public List<EnumPropertiesGroupModel> GetEnumsProperties()
         {
             return _propertiesService.GetAllEnums();
+        }
+
+
+
+        /// <summary>
+        /// Asynchronously retrieves properties required for creating a workout.
+        /// </summary>
+        /// <returns>A Task containing a response object with necessary properties for creating a workout.</returns>
+        public Task<WorkoutCreatorPropertiesResponse> GetWorkoutCreatorProperties()
+        {
+            return Task.FromResult(_workoutService.GetWorkoutCreationProperties());
         }
 
 

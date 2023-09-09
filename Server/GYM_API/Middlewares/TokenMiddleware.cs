@@ -20,12 +20,6 @@ namespace GYM_API.Middlewares
         
         public async Task Invoke(HttpContext context)
         {
-            // If authentication is disabled (for debugging purposes)
-            if (!_jwtSettings.IsAuthenticationActive)
-            {
-                await _next(context);
-                return;
-            }
 
             // Skip middleware for the auth and the swagger initialization routes
             if (context.Request.Path.StartsWithSegments("/api/auth") ||
