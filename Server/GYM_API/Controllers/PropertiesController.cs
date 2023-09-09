@@ -1,5 +1,6 @@
 ﻿using GYM_API.Controllers.Base;
 using GYM_LOGICS.Managers;
+using GYM_MODELS.Client.WorkoutCreator;
 using GYM_MODELS.DB;
 using GYM_MODELS.Settings.Properties;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,18 @@ namespace GYM_API.Controllers
         public ActionResult<List<EnumPropertiesGroupModel>> Enums()
         {
             return Ok(_propertiesManager.GetEnumsProperties());
+        }
+
+
+
+        /// <summary>
+        /// Retrieves all properties necessary for creating a new workout.
+        /// </summary>
+        [HttpGet("GetWorkoutCreatorProperties")]
+        [SwaggerOperation(Tags = new[] { nameof(ApiGroupNames.WorkoutCreation) })]
+        public ActionResult<WorkoutCreatorPropertiesResponse> GetWorkoutCreatorProperties()
+        {
+            return Ok(_propertiesManager.GetWorkoutCreatorProperties());
         }
     }
 }

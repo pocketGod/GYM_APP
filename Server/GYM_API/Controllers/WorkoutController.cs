@@ -35,17 +35,6 @@ namespace GYM_API.Controllers
 
 
         /// <summary>
-        /// Retrieves all properties necessary for creating a new workout.
-        /// </summary>
-        [HttpGet("GetWorkoutCreatorProperties")]
-        [SwaggerOperation(Tags = new[] { nameof(ApiGroupNames.WorkoutCreation) })]
-        public ActionResult<WorkoutCreatorPropertiesResponse> GetWorkoutCreatorProperties()
-        {
-            return Ok(_workoutManager.GetWorkoutCreatorProperties());
-        }
-
-
-        /// <summary>
         /// Adds a new workout to the database.
         /// </summary>
         [HttpPost("AddNewWorkoutToCollection")]

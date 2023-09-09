@@ -52,15 +52,6 @@ namespace GYM_LOGICS.Managers
 
         #region Workout Creator Methods
 
-        /// <summary>
-        /// Asynchronously retrieves properties required for creating a workout.
-        /// </summary>
-        /// <returns>A Task containing a response object with necessary properties for creating a workout.</returns>
-        public Task<WorkoutCreatorPropertiesResponse> GetWorkoutCreatorProperties()
-        {
-            return Task.FromResult(_workoutService.GetWorkoutCreationProperties());
-        }
-
 
         /// <summary>
         /// Asynchronously adds a new workout to the DB
