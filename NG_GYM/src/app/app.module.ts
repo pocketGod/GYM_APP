@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './modules/auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
+import { IonicModule } from '@ionic/angular';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     HttpClientModule,
+    IonicModule.forRoot(),
     AppRoutingModule,
     AuthModule
   ],
