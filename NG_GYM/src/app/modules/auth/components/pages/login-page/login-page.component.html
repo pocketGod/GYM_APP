@@ -1,0 +1,24 @@
+<h2 class="login-title">Login</h2>
+
+<div class="login-container">
+    <!-- <label class="input-label">Username</label> -->
+    <generic-input 
+        [type]="'text'" 
+        [placeholder]="'Username'" 
+        [validationType]="usernameValidationType"
+        [value]="credentials.user.value"
+        [autoFocus]="true"
+        (valueChange)="handleValueChange($event, 'user')">
+    </generic-input>
+    
+    <!-- <label class="input-label">Password</label> -->
+    <generic-input
+        [type]="'password'" 
+        [placeholder]="'Password'" 
+        [validationType]="passwordValidationType"
+        [value]="credentials.pass.value"
+        (valueChange)="handleValueChange($event, 'pass')"> 
+    </generic-input>
+
+  <button class="primary-btn" (click)="onSubmit()">Login</button>
+</div>

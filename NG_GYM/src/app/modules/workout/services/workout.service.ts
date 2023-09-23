@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
+import { HttpHandlerService } from 'src/app/common/services/http-handler.service';
 import { Exercise } from 'src/app/models/exercise/Exercise.model';
 import { ExerciseByMuscleResponse } from 'src/app/models/exercise/ExerciseApi.model';
 import { Workout } from 'src/app/models/workout/Workout.model';
-import { HttpHandlerService } from 'src/app/shared/services/http-handler.service';
 
 @Injectable({
   providedIn: 'root'

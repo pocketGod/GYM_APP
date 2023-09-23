@@ -30,7 +30,6 @@ namespace GYM_API.Middlewares
                 return;
             }
 
-
             string authorizationHeader = context.Request.Headers["Authorization"].FirstOrDefault();
             string token = null;
             if (authorizationHeader != null)

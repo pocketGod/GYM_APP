@@ -7,6 +7,7 @@ using GYM_MODELS.Settings;
 using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
 using System.Reflection;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using static GYM_MODELS.Settings.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -74,13 +75,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
 
-
 WebApplication app = builder.Build();
+
+// Cors config
+app.UseCors(builder => builder
+    .AllowAnyOrigin()
+    .WithMethods("GET", "POST", "PUT")
+    .AllowAnyHeader()
+    );
 
 // Middlewares
 app.UseMiddleware<TokenMiddleware>();
 
-// Configure the HTTP request pipeline.
+// Swagger config
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger(c =>

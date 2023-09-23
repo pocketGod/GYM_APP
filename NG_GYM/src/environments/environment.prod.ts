@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'TBD'
+    apiUrl: 'https://localhost:7278/api/' //TBD
 };

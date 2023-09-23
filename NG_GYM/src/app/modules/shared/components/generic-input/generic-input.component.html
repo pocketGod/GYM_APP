@@ -1,0 +1,11 @@
+<div class="input-wrapper">
+  <input
+    [type]="type"
+    [placeholder]="placeholder"
+    [value]="value"
+    (input)="onInputChange($event)"
+    [Autofocus]="autoFocus"
+    [ngClass]="{'invalid': !isValid, 'valid': isValid && isDirty}"
+  />
+  <span class="invalid-icon" *ngIf="!isValid">!</span>
+</div>

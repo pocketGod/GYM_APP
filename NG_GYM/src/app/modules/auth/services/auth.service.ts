@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { HttpHandlerService } from 'src/app/common/services/http-handler.service';
 import { LoginRequest, LoginResponse, RegisterRequest } from 'src/app/models/auth/AuthApi.model';
-import { HttpHandlerService } from 'src/app/shared/services/http-handler.service';
+import { ValidationType } from 'src/app/models/common/PatternValidations';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,11 @@ import { HttpHandlerService } from 'src/app/shared/services/http-handler.service
 
 export class AuthService extends HttpHandlerService {
 
+  validationTypes = {
+    usernameValidationType:ValidationType.Username,
+    passwordValidationType:ValidationType.Password
+  }
+  
   private baseAuthURL = 'Auth'; 
 
   login(username: string, password: string): Observable<LoginResponse> {
@@ -17,8 +23,8 @@ export class AuthService extends HttpHandlerService {
     return this.post(`${this.baseAuthURL}/Sign_In`, body).pipe(
       map(response => response as LoginResponse),
       tap(result => {
-        if (result && result.Token) {
-          localStorage.setItem('auth_token', result.Token);
+        if (result && result.token) {
+          localStorage.setItem('user_auth_token', result.token);
         }
       })
     );
@@ -29,8 +35,8 @@ export class AuthService extends HttpHandlerService {
     return this.post(`${this.baseAuthURL}/Sign_Up`, body).pipe(
       map(response => response as LoginResponse),
       tap(result => {
-        if (result && result.Token) {
-          localStorage.setItem('auth_token', result.Token);
+        if (result && result.token) {
+          localStorage.setItem('user_auth_token', result.token);
         }
       })
     );

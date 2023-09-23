@@ -1,0 +1,42 @@
+@import '/src/styles/colors.scss';
+
+.input-wrapper {
+  position: relative;
+  margin: 1rem 0;
+
+  input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid $gray-low;
+    border-radius: 0.5rem;
+    background-color: $gray-low;
+    color: $gray-high;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border-color: $gray;
+      // background-color: $primary-low;
+    }
+
+    &.invalid {
+      border-color: $danger;
+      // background-color: rgba($danger, 0.1);
+    }
+
+    &.valid{
+      border-color: $primary;
+    }
+   
+  }
+
+  .invalid-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $danger;
+    font-size: 1.2rem;
+  }
+}
