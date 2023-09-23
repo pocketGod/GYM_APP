@@ -14,16 +14,19 @@ export class GenericInputComponent<T> implements OnInit {
   @Input() validationType?: ValidationType;
   @Input() customRules?: { minLength?: number, maxLength?: number };
   @Input() value: T | null = null;
+  @Input() autoFocus: boolean = false;
 
   @Output() valueChange: EventEmitter<GenericInputValue<T> | null> = new EventEmitter();
 
   isValid: boolean = true;
+  isDirty: boolean = false;
 
   constructor(private patternValidationService: PatternValidationService) {}
 
   ngOnInit(): void {}
 
   onInputChange(event: any) {
+    this.isDirty = true;
     this.value = event.target.value;
     this.validate();
   }

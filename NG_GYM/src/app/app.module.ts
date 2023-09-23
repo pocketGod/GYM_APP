@@ -7,13 +7,11 @@ import { AuthModule } from './modules/auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
 import { SharedModule } from './modules/shared/shared.module';
-import { AutofocusDirective } from './shared/directives/auto-focus.directive';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AutofocusDirective
+    AppComponent
     ],
   imports: [
     BrowserModule,

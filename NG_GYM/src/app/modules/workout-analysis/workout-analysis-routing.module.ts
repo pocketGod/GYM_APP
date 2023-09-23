@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { AnalysisHomePageComponent } from './components/pages/analysis-home-page/analysis-home-page.component';
-import { AuthGuard } from 'src/app/shared/guards/auth.guard';
+import { AuthGuard } from 'src/app/common/guards/auth.guard';
 
 
 const routes: Routes = [

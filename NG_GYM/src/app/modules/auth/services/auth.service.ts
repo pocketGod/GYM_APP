@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { HttpHandlerService } from 'src/app/common/services/http-handler.service';
 import { LoginRequest, LoginResponse, RegisterRequest } from 'src/app/models/auth/AuthApi.model';
 import { ValidationType } from 'src/app/models/common/PatternValidations';
-import { HttpHandlerService } from 'src/app/shared/services/http-handler.service';
 
 @Injectable({
   providedIn: 'root'

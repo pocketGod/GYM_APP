@@ -4,6 +4,8 @@
     [placeholder]="placeholder"
     [value]="value"
     (input)="onInputChange($event)"
-    [class.invalid]="!isValid"
+    [Autofocus]="autoFocus"
+    [ngClass]="{'invalid': !isValid, 'valid': isValid && isDirty}"
   />
+  <span class="invalid-icon" *ngIf="!isValid">!</span>
 </div>

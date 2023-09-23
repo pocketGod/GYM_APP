@@ -5,7 +5,7 @@ import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'register-page',
   templateUrl: './register-page.component.html',
-  styleUrls: ['./register-page.component.scss']
+  styleUrls: ['./register-page.component.scss', '../login-page/login-page.component.scss']
 })
 export class RegisterPageComponent {
 
