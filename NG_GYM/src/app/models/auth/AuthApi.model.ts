@@ -9,7 +9,7 @@ export interface RegisterRequest{
 }
 
 export interface LoginResponse { 
-    Token: string;
-    Error: string;
-    IsSuccess: boolean;
+    token: string;
+    error: string;
+    isSuccess: boolean;
 }

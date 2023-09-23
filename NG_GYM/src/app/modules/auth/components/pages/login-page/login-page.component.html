@@ -1,0 +1,23 @@
+<h2>login</h2>
+
+<div>
+    username
+    <generic-input 
+        [type]="'text'" 
+        [placeholder]="'Username'" 
+        [validationType]="usernameValidationType"
+        [value]="credentials.user.value"
+        (valueChange)="handleValueChange($event, 'user')">
+    </generic-input>
+    
+    password
+    <generic-input
+        [type]="'password'" 
+        [placeholder]="'Password'" 
+        [validationType]="passwordValidationType"
+        [value]="credentials.pass.value"
+        (valueChange)="handleValueChange($event, 'pass')"> 
+    </generic-input>
+
+  <button (click)="onSubmit()">Login</button>
+</div>

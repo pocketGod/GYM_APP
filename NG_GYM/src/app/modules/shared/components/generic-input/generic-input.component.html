@@ -1,0 +1,9 @@
+<div class="input-wrapper">
+  <input
+    [type]="type"
+    [placeholder]="placeholder"
+    [value]="value"
+    (input)="onInputChange($event)"
+    [class.invalid]="!isValid"
+  />
+</div>

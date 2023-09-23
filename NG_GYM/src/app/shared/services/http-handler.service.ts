@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -12,8 +11,8 @@ export class HttpHandlerService {
 
   constructor(private http: HttpClient) { }
 
-  getHttpOptions() {
-    const token = localStorage.getItem('auth_token');
+  private getHttpOptions() {
+    const token = localStorage.getItem('user_auth_token');
     let headers = new HttpHeaders();
     if (token) {
       headers = headers.set('Authorization', `Bearer ${token}`);
@@ -21,11 +20,11 @@ export class HttpHandlerService {
     return { headers };
   }
 
-  get(endpoint: string) {
+  protected get(endpoint: string) {
     return this.http.get(`${this.apiUrl}${endpoint}`, this.getHttpOptions());
   }
 
-  post(endpoint: string, body: any) {
+  protected post(endpoint: string, body: any) {
     return this.http.post(`${this.apiUrl}${endpoint}`, body, this.getHttpOptions());
   }
 }
