@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { take } from 'rxjs';
 import { NotificationTypes } from 'src/app/models/enums/Notifications.enum';
+import { Workout } from 'src/app/models/workout/Workout.model';
 import { GenericDialogComponent } from 'src/app/modules/shared/components/generic-dialog/generic-dialog.component';
 import { DialogService } from 'src/app/modules/shared/services/dialog.service';
 import { NotificationService } from 'src/app/modules/shared/services/notification.service';
@@ -15,15 +16,21 @@ export class AnalysisHomePageComponent implements OnInit, AfterViewInit {
 
   @ViewChild('confirmationDialog') private confirmDialog!: GenericDialogComponent;
 
-  constructor(private workoutService:WorkoutService, private dialogService: DialogService, private notificationService:NotificationService) {
-    
+  workouts: Workout[] = []
+
+  constructor(
+    private workoutService:WorkoutService, 
+    private dialogService: DialogService, 
+    private notificationService:NotificationService
+    ) {
   }
 
 
   ngOnInit(): void {
-    // this.workoutService.getAllWorkouts().subscribe((workouts)=>{
-    //   console.log(workouts);
-    // });
+    this.workoutService.getAllWorkouts().subscribe((workouts)=>{
+      console.log(workouts);
+      this.workouts = workouts
+    });
   }
 
   ngAfterViewInit(): void {

@@ -9,7 +9,6 @@ import { GenericNotificationComponent } from './components/generic-notification/
 import { GenericNotificationsContainerComponent } from './components/generic-notifications-container/generic-notifications-container.component';
 
 
-
 @NgModule({
   declarations: [
     GenericInputComponent,

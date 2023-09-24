@@ -13,23 +13,16 @@ export class WorkoutService extends HttpHandlerService {
   private baseExerciseURL = 'Exercise'; 
   private baseWorkoutURL = 'Workout'; 
 
-  getAllWorkouts(): Observable<Workout[]> {
-    return this.get(`${this.baseWorkoutURL}/GetAllWorkouts`).pipe(
-      map(response => response as Workout[])
-    );
+  getAllWorkouts(): Observable<Workout[]> {    
+    return this.get<Workout[]>(`${this.baseWorkoutURL}/GetAllWorkouts`);
   }
 
-  
   getAllExercises(): Observable<Exercise[]> {
-    return this.get(`${this.baseExerciseURL}/GetAllExercises`).pipe(
-      map(response => response as Exercise[])
-    );
+    return this.get<Exercise[]>(`${this.baseExerciseURL}/GetAllExercises`);
   }
 
   getExercisesByTargetMuscle(targetMuscle: string): Observable<ExerciseByMuscleResponse> {
-    return this.get(`${this.baseExerciseURL}/GetByTargetMuscle/${targetMuscle}`).pipe(
-      map(response => response as ExerciseByMuscleResponse)
-    );
+    return this.get<ExerciseByMuscleResponse>(`${this.baseExerciseURL}/GetByTargetMuscle/${targetMuscle}`);
   }
 
 }

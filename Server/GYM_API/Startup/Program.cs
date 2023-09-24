@@ -86,6 +86,7 @@ app.UseCors(builder => builder
 
 // Middlewares
 app.UseMiddleware<TokenMiddleware>();
+app.UseMiddleware<ApiResponseMiddleware>();
 
 // Swagger config
 if (app.Environment.IsDevelopment())

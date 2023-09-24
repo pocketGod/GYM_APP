@@ -1,6 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import { ApiResponse } from 'src/app/models/common/ApiResponse.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +23,35 @@ export class HttpHandlerService {
     return { headers };
   }
 
-  protected get(endpoint: string) {
-    return this.http.get(`${this.apiUrl}${endpoint}`, this.getHttpOptions());
+  protected get<T>(endpoint: string): Observable<T> {
+    return this.http.get<ApiResponse<T>>(`${this.apiUrl}${endpoint}`, this.getHttpOptions()).pipe(
+      map(response => {        
+        if (response.status === 5 || (response.status >= 200 && response.status <= 300)) {          
+          return response.result;
+        } else {
+          throw new Error(response.exception || 'Unknown error');
+        }
+      }),
+      catchError(err => {
+        console.log('get http response error',err)
+        return throwError(err);
+      })
+    );
   }
 
-  protected post(endpoint: string, body: any) {
-    return this.http.post(`${this.apiUrl}${endpoint}`, body, this.getHttpOptions());
+  protected post<T>(endpoint: string, body: any): Observable<T> {
+    return this.http.post<ApiResponse<T>>(`${this.apiUrl}${endpoint}`, body, this.getHttpOptions()).pipe(
+      map(response => {  
+        if (response.status === 5 || (response.status >= 200 && response.status <= 300)) {
+          return response.result;
+        } else {
+          throw new Error(response.exception || 'Unknown error');
+        }
+      }),
+      catchError(err => {
+        console.log('post http response error', err)
+        return throwError(err)
+      })
+    );
   }
 }

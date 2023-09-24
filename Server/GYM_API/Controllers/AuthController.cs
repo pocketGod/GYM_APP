@@ -22,9 +22,12 @@ namespace GYM_API.Controllers
         /// </summary>
         [HttpPost("Sign_In")]
         [SwaggerOperation(Tags = new[] { nameof(ApiGroupNames.Authentication) })]
-        public ActionResult Sign_In([FromBody] LoginModel loginForm)
+        public ActionResult<LoginResult> Sign_In([FromBody] LoginModel loginForm)
         {
-            return Ok(_authService.Login(loginForm));
+            LoginResult loginResult = _authService.Login(loginForm);
+            HttpContext.Response.Headers.Add("X-Is-Not-ApiResponse", "false");
+
+            return Ok(loginResult);
         }
 
         /// <summary>
@@ -32,9 +35,11 @@ namespace GYM_API.Controllers
         /// </summary>
         [HttpPost("Sign_Up")]
         [SwaggerOperation(Tags = new[] { "Authentication" })]
-        public ActionResult Sign_Up([FromBody] RegisterModel registerModel)
+        public ActionResult<LoginResult> Sign_Up([FromBody] RegisterModel registerModel)
         {
-            return Ok(_authService.Register(registerModel));
+            LoginResult registerResult = _authService.Register(registerModel);
+            HttpContext.Response.Headers.Add("X-Is-Not-ApiResponse", "false");
+            return Ok(registerResult);
         }
     }
 }

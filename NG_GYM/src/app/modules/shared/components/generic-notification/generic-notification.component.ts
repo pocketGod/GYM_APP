@@ -1,12 +1,20 @@
+
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Subject } from 'rxjs';
+import { slideDown, slideInOut, fadeOut } from 'src/app/common/animations/notifications.animation';
 import { NotificationTypes } from 'src/app/models/enums/Notifications.enum';
 
 @Component({
   selector: 'generic-notification',
   templateUrl: './generic-notification.component.html',
-  styleUrls: ['./generic-notification.component.scss']
+  styleUrls: ['./generic-notification.component.scss'],
+  animations: [
+    slideInOut,
+    slideDown,
+    fadeOut
+  ]
 })
+
 export class GenericNotificationComponent implements OnChanges{
 
   @Input() type: NotificationTypes = NotificationTypes.Success;
@@ -15,9 +23,10 @@ export class GenericNotificationComponent implements OnChanges{
   
   isVisible: boolean = false;
   progress: number = 100;
+  animationState: string = 'out';
 
   private timerId: any;
-  private initialTime: number = 30000;
+  private initialTime: number = 4000;
   private remainingTime: number = this.initialTime;
   private lastPauseTime: number | null = null;
 
@@ -32,17 +41,20 @@ export class GenericNotificationComponent implements OnChanges{
   open(message: string) {
     this.message = message;
     this.isVisible = true;
+    this.animationState = 'in';
     this.startTimer();
   }
-
+  
   close() {
-    clearInterval(this.timerId);
-    this.remainingTime = this.initialTime;
-    this.progress = 100;
-    this.isVisible = false;
-    this.closeSubject.next();
-    this.closed.emit();
+    this.animationState = 'out';
+    setTimeout(() => {
+      this.isVisible = false;
+      this.closeSubject.next();
+      this.closed.emit();
+    }, 300);
+    this.pauseTimer();
   }
+  
 
   onClose() {
     return this.closeSubject.asObservable();

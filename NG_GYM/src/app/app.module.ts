@@ -7,6 +7,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
 import { SharedModule } from './modules/shared/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { SharedModule } from './modules/shared/shared.module';
     IonicModule.forRoot(),
     AppRoutingModule,
     AuthModule,
-    SharedModule
+    SharedModule,
+    BrowserAnimationsModule
   ],
   providers: [
     // {

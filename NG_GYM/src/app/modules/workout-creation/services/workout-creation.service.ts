@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
+import { HttpHandlerService } from 'src/app/common/services/http-handler.service';
 import { WorkoutCreationPropertiesResponse } from 'src/app/models/workout-creator/NewWorkoutApi.model';
-import { HttpHandlerService } from 'src/app/shared/services/http-handler.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +13,7 @@ export class WorkoutCreationService extends HttpHandlerService {
   private propertiesWorkoutURL = 'Properties'; 
 
   getWorkoutCreationProperties(): Observable<WorkoutCreationPropertiesResponse> {
-    return this.get(`${this.propertiesWorkoutURL}/GetWorkoutCreatorProperties`).pipe(
-      map(response => response as WorkoutCreationPropertiesResponse)
-    );
+    return this.get<WorkoutCreationPropertiesResponse>(`${this.propertiesWorkoutURL}/GetWorkoutCreatorProperties`);
   }
 
 }

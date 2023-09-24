@@ -1,14 +1,17 @@
-<div *ngIf="isVisible" 
-    class="notification" 
-    [ngClass]="type"
-    (click)="close()"
-    (mouseenter)="pauseTimer()" 
-    (mouseleave)="resumeTimer()"
-    (touchstart)="pauseTimer()"
-    (touchend)="resumeTimer()"
-    >
-    <!-- <button class="close-button" >X</button> -->
-    <div>{{ message }}</div>
-    <div class="progress-bar" [style.width.%]="progress"></div>
+
+<div *ngIf="isVisible" [@slideInOut]='isVisible ? "in" : "out"'>
+    <div class="notification" 
+        [ngClass]="type"
+        (click)="close()"
+        (mouseenter)="pauseTimer()" 
+        (mouseleave)="resumeTimer()"
+        (touchstart)="pauseTimer()"
+        (touchend)="resumeTimer()"
+        [@fadeOut]
+        >
+        <div>{{ message }}</div>
+        <div class="progress-bar" [style.width.%]="progress"></div>
+    </div>
+
 </div>
   

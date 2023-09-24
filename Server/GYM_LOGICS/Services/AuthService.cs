@@ -40,6 +40,7 @@ namespace GYM_LOGICS.Services
 
             result.Token = _jwtService.GenerateJwtToken(userRecord._id);
 
+
             return result;
         }
 
