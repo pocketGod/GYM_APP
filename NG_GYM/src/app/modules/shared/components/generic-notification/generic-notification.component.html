@@ -1,0 +1,14 @@
+<div *ngIf="isVisible" 
+    class="notification" 
+    [ngClass]="type"
+    (click)="close()"
+    (mouseenter)="pauseTimer()" 
+    (mouseleave)="resumeTimer()"
+    (touchstart)="pauseTimer()"
+    (touchend)="resumeTimer()"
+    >
+    <!-- <button class="close-button" >X</button> -->
+    <div>{{ message }}</div>
+    <div class="progress-bar" [style.width.%]="progress"></div>
+</div>
+  

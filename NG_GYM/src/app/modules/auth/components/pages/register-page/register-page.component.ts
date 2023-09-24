@@ -1,26 +1,20 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+import { RegisterCredentials } from 'src/app/models/auth/Credentials.model';
 
 @Component({
   selector: 'register-page',
   templateUrl: './register-page.component.html',
-  styleUrls: ['./register-page.component.scss', '../login-page/login-page.component.scss']
+  styleUrls: ['./register-page.component.scss']
 })
 export class RegisterPageComponent {
 
-  credentials = {
+  credentials:RegisterCredentials = {
     user: {value: '', valid: false},
     pass: {value: '', valid: false}
   };
 
-  get usernameValidationType() {
-    return this.authService.validationTypes.usernameValidationType;
-  }
-
-  get passwordValidationType() {
-    return this.authService.validationTypes.passwordValidationType;
-  }
 
   constructor(private router: Router, private authService: AuthService) {}
 
@@ -30,7 +24,7 @@ export class RegisterPageComponent {
 
 
   onSubmit() {
-    if (this.credentials.user.valid && this.credentials.pass.valid) {
+    if (this.credentials.user.value && this.credentials.pass.value && this.credentials.user.valid && this.credentials.pass.valid) {
       this.authService.register(this.credentials.user.value, this.credentials.pass.value)
         .subscribe(
           (response) => {
@@ -50,10 +44,4 @@ export class RegisterPageComponent {
     }
   }
 
-  handleValueChange(value: any, fieldName: keyof typeof this.credentials) {
-    if (value) {
-      this.credentials[fieldName].value = value.value;
-      this.credentials[fieldName].valid = value.valid;
-    }
-  }
 }
