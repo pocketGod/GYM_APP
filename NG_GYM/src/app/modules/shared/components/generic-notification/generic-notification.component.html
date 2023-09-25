@@ -7,7 +7,6 @@
         (mouseleave)="resumeTimer()"
         (touchstart)="pauseTimer()"
         (touchend)="resumeTimer()"
-        [@fadeOut]
         >
         <div>{{ message }}</div>
         <div class="progress-bar" [style.width.%]="progress"></div>

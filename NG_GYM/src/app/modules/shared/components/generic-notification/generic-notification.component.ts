@@ -1,7 +1,7 @@
 
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
 import { Subject } from 'rxjs';
-import { slideDown, slideInOut, fadeOut } from 'src/app/common/animations/notifications.animation';
+import { slideDown, slideInOut } from 'src/app/common/animations/notifications.animation';
 import { NotificationTypes } from 'src/app/models/enums/Notifications.enum';
 
 @Component({
@@ -10,12 +10,11 @@ import { NotificationTypes } from 'src/app/models/enums/Notifications.enum';
   styleUrls: ['./generic-notification.component.scss'],
   animations: [
     slideInOut,
-    slideDown,
-    fadeOut
+    slideDown
   ]
 })
 
-export class GenericNotificationComponent implements OnChanges{
+export class GenericNotificationComponent implements OnChanges, OnDestroy{
 
   @Input() type: NotificationTypes = NotificationTypes.Success;
   @Input() message: string = ''
@@ -32,11 +31,21 @@ export class GenericNotificationComponent implements OnChanges{
 
   private closeSubject: Subject<void> = new Subject<void>();
 
+  constructor(private cdr: ChangeDetectorRef) {
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['message'] && changes['message'].currentValue) {
       this.open(this.message);
     }
   }
+
+  ngOnDestroy() {
+    if (this.timerId) {
+      clearInterval(this.timerId);
+    }
+  }
+  
 
   open(message: string) {
     this.message = message;
@@ -46,19 +55,28 @@ export class GenericNotificationComponent implements OnChanges{
   }
   
   close() {
-    this.animationState = 'out';
-    setTimeout(() => {
-      this.isVisible = false;
-      this.closeSubject.next();
-      this.closed.emit();
-    }, 300);
+    console.log('Setting animation state to void');
+    this.animationState = 'void';  
+    this.isVisible = false;
     this.pauseTimer();
   }
+  
   
 
   onClose() {
     return this.closeSubject.asObservable();
   }
+
+  @HostListener('@slideInOut.done', ['$event'])
+  animationDone(event: any) {
+    console.log('Animation done event fired', event);
+    if (event.toState === 'void') {
+      this.isVisible = false;
+      this.closeSubject.next();
+      this.closed.emit();
+    }
+  }
+  
 
   private startTimer() {
     const updateProgress = () => {

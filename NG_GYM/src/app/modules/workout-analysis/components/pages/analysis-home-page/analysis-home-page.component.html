@@ -1,8 +1,10 @@
 <generic-dialog #confirmationDialog></generic-dialog>
 
-<button (click)="testDialog()">Test Dialog</button>
-<button (click)="testNotificationPositive()">Test Notification Positive</button>
-<button (click)="testNotificationNegative()">Test Notification Negative</button>
+<div class="page-container">
+    <button class="primary-btn" (click)="testDialog()">Test Dialog</button>
+    <button class="primary-btn" (click)="testNotificationPositive()">Test Notification Positive</button>
+    <button class="primary-btn" (click)="testNotificationNegative()">Test Notification Negative</button>
 
 
-<p *ngIf="workouts.length">{{workouts.length}} workouts for the connected user</p>
+    <p *ngIf="workouts.length">{{workouts.length}} workouts for the connected user</p>
+</div>
