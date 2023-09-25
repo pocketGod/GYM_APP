@@ -49,9 +49,13 @@ export class AnalysisHomePageComponent implements OnInit, AfterViewInit {
       .pipe(take(1))
       .subscribe(confirmed => {
         if (confirmed) {
+
           console.log('dialog said yes');
+
         } else {
+
           console.log('dialog said no');
+          
         }
       });
   }
