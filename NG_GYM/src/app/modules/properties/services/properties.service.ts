@@ -34,11 +34,11 @@ export class PropertiesService extends HttpHandlerService {
 
   private filterEnumsByGroupName(allEnums: EnumPropertiesGroupModel[], groupNames: ApiGroupNames[]): EnumPropertiesModel[] {
     if (groupNames.length === 0) {
-      return allEnums.map(group => group.Enums).flat();
+      return allEnums.map(group => group.enums).flat();
     }
 
     return allEnums
-      .filter(group => groupNames.includes(group.GroupName as ApiGroupNames))
-      .map(group => group.Enums).flat();
+      .filter(group => groupNames.includes(group.groupName as ApiGroupNames))
+      .map(group => group.enums).flat();
   }
 }
