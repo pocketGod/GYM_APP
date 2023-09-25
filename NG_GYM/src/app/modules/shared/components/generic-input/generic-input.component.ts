@@ -16,7 +16,7 @@ export class GenericInputComponent<T> implements OnInit {
   @Input() value: T | null = null;
   @Input() autoFocus: boolean = false;
 
-  @Output() valueChange: EventEmitter<GenericInputValue<T> | null> = new EventEmitter();
+  @Output() valueChange: EventEmitter<GenericInputValue<T>> = new EventEmitter();
 
   isValid: boolean = true;
   isDirty: boolean = false;
@@ -35,7 +35,7 @@ export class GenericInputComponent<T> implements OnInit {
     this.isValid = this.patternValidationService.validate(this.value, this.validationType, this.customRules);
     
     const genericInputValue: GenericInputValue<T> = {
-      value: this.value,
+      value: this.value as T,
       valid: this.isValid,
     };
     

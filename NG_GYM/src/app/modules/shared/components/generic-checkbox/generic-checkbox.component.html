@@ -1,0 +1,7 @@
+<div class="checkbox-wrapper">
+    <div class="round">
+      <input type="checkbox" [id]="label" [checked]="isChecked" (change)="toggleChecked()" />
+      <label [for]="label"></label>
+    </div>
+    <span class="label">{{ label }}</span>
+</div>

@@ -49,6 +49,12 @@ namespace GYM_LOGICS.Services
             return dbRecords.Select(_workoutBuilder.BuildForClient).ToList();
         }
 
+        public Workout GetWorkoutById(string id)
+        {
+            WorkoutDBRecord dbRecord = _workouts.Find(wo => wo._id == id).ToList().FirstOrDefault();
+            return _workoutBuilder.BuildForClient(dbRecord);
+        }
+
 
 
         public WorkoutCreatorPropertiesResponse GetWorkoutCreationProperties()

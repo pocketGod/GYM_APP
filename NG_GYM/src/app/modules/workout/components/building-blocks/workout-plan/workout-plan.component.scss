@@ -1,0 +1,38 @@
+@import '/src/styles/colors.scss';
+
+
+.workout-plan {
+    border: 1px solid $gray;
+    padding: 16px;
+    margin: 16px;
+    border-radius: 8px;
+    background-color: $gray-low;
+  }
+  
+  .plan-name {
+    font-size: 1.5em;
+    margin-bottom: 16px;
+  }
+  
+  .workouts-list {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .workout-item {
+    padding: 8px;
+    border: 1px solid $gray;
+    margin: 8px 0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+  
+    .workout-name {
+      font-weight: bold;
+    }
+  
+    .workout-type {
+      font-size: 0.8em;
+      color: $gray-high;
+    }
+}

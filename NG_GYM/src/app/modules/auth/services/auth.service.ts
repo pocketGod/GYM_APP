@@ -20,8 +20,7 @@ export class AuthService extends HttpHandlerService {
 
   login(username: string, password: string): Observable<LoginResponse> {
     const body: LoginRequest = { Username: username, Password: password };
-    return this.post(`${this.baseAuthURL}/Sign_In`, body).pipe(
-      map(response => response as LoginResponse),
+    return this.post<LoginResponse>(`${this.baseAuthURL}/Sign_In`, body).pipe(
       tap(result => {
         if (result && result.token) {
           localStorage.setItem('user_auth_token', result.token);
@@ -29,11 +28,10 @@ export class AuthService extends HttpHandlerService {
       })
     );
   }
-  
+
   register(username: string, password: string): Observable<LoginResponse> {
     const body: RegisterRequest = { Username: username, Password: password };
-    return this.post(`${this.baseAuthURL}/Sign_Up`, body).pipe(
-      map(response => response as LoginResponse),
+    return this.post<LoginResponse>(`${this.baseAuthURL}/Sign_Up`, body).pipe(
       tap(result => {
         if (result && result.token) {
           localStorage.setItem('user_auth_token', result.token);

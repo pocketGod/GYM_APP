@@ -1,0 +1,16 @@
+<div class="workout-plan">
+    <h2 class="plan-name">{{ plan.name }}</h2>
+    <div class="workouts-list">
+        <div class="workout-item" *ngFor="let wo of plan.workouts">
+
+            <!-- TD workout component -->
+            
+            <div class="workout-name">{{ wo.name }}</div>
+            <div class="workout-type">{{ getWorkoutTypeValue(wo.workoutType) }}</div>
+        </div>
+    </div>
+</div>
+
+
+<generic-checkbox [label]="'My Checkbox'" [(isChecked)]="someBooleanVariable"></generic-checkbox>
+

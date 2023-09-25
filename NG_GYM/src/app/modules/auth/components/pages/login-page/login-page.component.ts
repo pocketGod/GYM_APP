@@ -18,13 +18,6 @@ export class LoginPageComponent {
     pass: {value:'', valid:false}
   } 
 
-  get usernameValidationType() {
-    return this.authService.validationTypes.usernameValidationType;
-  }
-
-  get passwordValidationType() {
-    return this.authService.validationTypes.passwordValidationType;
-  }
 
   constructor(private router: Router, private authService: AuthService) {}
 
@@ -54,13 +47,6 @@ export class LoginPageComponent {
     }
     else{
       console.log('invalid credentials', this.credentials);
-    }
-  }
-
-  handleValueChange(value: GenericInputValue<string> | null, fieldName: keyof LoginCredentials) {
-    if (value) {
-      this.credentials[fieldName].value = value.value;
-      this.credentials[fieldName].valid = value.valid;
     }
   }
   

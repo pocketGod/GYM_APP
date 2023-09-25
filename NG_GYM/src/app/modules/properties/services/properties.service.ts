@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, map, of, tap } from 'rxjs';
+import { HttpHandlerService } from 'src/app/common/services/http-handler.service';
 import { ApiGroupNames } from 'src/app/models/enums/ApiGrouping.enum';
 import { EnumPropertiesGroupModel, EnumPropertiesModel } from 'src/app/models/properties/PropertiesEnums.model';
-import { HttpHandlerService } from 'src/app/shared/services/http-handler.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,17 +22,13 @@ export class PropertiesService extends HttpHandlerService {
     );
   }
 
-
   private fetchEnums(): Observable<EnumPropertiesGroupModel[]> {
     if (this.cachedEnums.length > 0) {
       return of(this.cachedEnums);
     }
 
-    return this.get(`${this.baseURL}/Enums`).pipe(
-      map((result: any) => result as EnumPropertiesGroupModel[]),
-      tap((result: EnumPropertiesGroupModel[]) => {
-        this.cachedEnums = result;
-      })
+    return this.get<EnumPropertiesGroupModel[]>(`${this.baseURL}/Enums`).pipe(
+      tap(result => this.cachedEnums = result)
     );
   }
 

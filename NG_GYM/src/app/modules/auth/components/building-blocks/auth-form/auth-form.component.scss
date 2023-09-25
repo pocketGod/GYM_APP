@@ -1,0 +1,14 @@
+@import '/src/styles/colors.scss';
+@import '/src/styles/buttons.scss';
+
+.login-container, .register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 15px;
+
+    generic-input{
+        width: 100%;
+    }
+
+}

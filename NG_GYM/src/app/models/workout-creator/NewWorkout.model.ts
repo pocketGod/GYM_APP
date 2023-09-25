@@ -2,20 +2,20 @@ import { ExerciseSetTypes } from "../enums/Exercise.enum";
 import { WorkoutTypes } from "../enums/Workout.enum";
 
 export interface NewWorkout {
-    Name: string;
-    WorkoutType: WorkoutTypes;
-    Exercises: NewWorkoutExercise[];
-    WorkoutId: string;
+    name: string;
+    workoutType: WorkoutTypes;
+    exercises: NewWorkoutExercise[];
+    workoutId: string;
 }
 
 export interface NewWorkoutExercise {
-    ID: string;
-    Sets: NewWorkoutExerciseSet[];
+    id: string;
+    sets: NewWorkoutExerciseSet[];
 }
 
 export interface NewWorkoutExerciseSet {
-    Order: number;
-    Reps: number;
-    SetType: ExerciseSetTypes;
+    order: number;
+    reps: number;
+    setType: ExerciseSetTypes;
 }
   

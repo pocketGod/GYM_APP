@@ -30,7 +30,7 @@ namespace GYM_LOGICS.Builders
                 Id = dbRecord._id,
                 Name = dbRecord.Name,
                 WorkoutType = dbRecord.WorkoutType,
-                OwnerUserId = dbRecord.OwnerUserId,
+                OwnerUserId = dbRecord.OwnerUserId.ToString(),
                 Exercises = dbRecord.Exercises
                     .Where(e => exercises.ContainsKey(e.ID))  // Only include exercises that were found
                     .Select(e => new WorkoutExercise

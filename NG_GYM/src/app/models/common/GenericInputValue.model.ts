@@ -1,4 +1,4 @@
 export interface GenericInputValue<T>{
-    value:T|null, 
+    value:T, 
     valid:boolean
 }

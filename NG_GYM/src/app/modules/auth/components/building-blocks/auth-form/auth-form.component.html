@@ -1,0 +1,45 @@
+<div class="login-container" *ngIf="isLoginForm; else registerForm">
+    <generic-input 
+        [type]="'text'" 
+        [placeholder]="'Username'" 
+        [validationType]="usernameValidationType"
+        [value]="loginCreds.user.value"
+        [autoFocus]="true"
+        (valueChange)="handleValueChange($event, 'user')">
+    </generic-input>
+    
+    <generic-input
+        [type]="'password'" 
+        [placeholder]="'Password'" 
+        [validationType]="passwordValidationType"
+        [value]="loginCreds.pass.value"
+        (valueChange)="handleValueChange($event, 'pass')"> 
+    </generic-input>
+
+  <button class="primary-btn" (click)="submitForm()">Login</button>
+</div>
+
+<ng-template #registerForm>  <!-- TD: expand register form -->
+
+    <div class="register-container">
+        <generic-input 
+            [type]="'text'" 
+            [placeholder]="'Username'" 
+            [validationType]="usernameValidationType"
+            [value]="registerCreds.user.value"
+            [autoFocus]="true"
+            (valueChange)="handleValueChange($event, 'user')">
+        </generic-input>
+        
+        <generic-input
+            [type]="'password'" 
+            [placeholder]="'Password'" 
+            [validationType]="passwordValidationType"
+            [value]="registerCreds.pass.value"
+            (valueChange)="handleValueChange($event, 'pass')"> 
+        </generic-input>
+    
+      <button class="primary-btn" (click)="submitForm()">Register</button>
+    </div>
+
+</ng-template>

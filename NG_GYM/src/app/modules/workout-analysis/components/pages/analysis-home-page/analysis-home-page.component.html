@@ -1,1 +1,20 @@
-<p>analysis-home-page works!</p>
+<generic-dialog #confirmationDialog></generic-dialog>
+
+<div class="page-container">
+    <button class="primary-btn" (click)="testDialog()">Test Dialog</button>
+    <button class="primary-btn" (click)="testNotificationPositive()">Test Notification Positive</button>
+    <button class="secondary-btn" (click)="testNotificationNegative()">Test Notification Negative</button>
+
+    <ng-container *ngIf="workouts.length">
+
+        <p>{{workouts.length}} workout plans for the connected user</p>
+
+
+    </ng-container>
+
+    <div *ngFor="let plan of plans">
+        <workout-plan [plan]="plan"></workout-plan>
+    </div>
+
+
+</div>

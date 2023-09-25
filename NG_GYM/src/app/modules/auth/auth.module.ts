@@ -5,13 +5,15 @@ import { LoginPageComponent } from './components/pages/login-page/login-page.com
 import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import { AuthFormComponent } from './components/building-blocks/auth-form/auth-form.component';
 
 
 
 @NgModule({
   declarations: [
     LoginPageComponent,
-    RegisterPageComponent
+    RegisterPageComponent,
+    AuthFormComponent
   ],
   imports: [
     CommonModule,

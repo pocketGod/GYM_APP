@@ -8,11 +8,13 @@ namespace GYM_LOGICS.Managers
     public class WorkoutManager
     {
         private readonly ExerciseService _exerciseService;
+        private readonly WorkoutPlanService _planService;
         private readonly WorkoutService _workoutService;
-        public WorkoutManager(WorkoutService workoutService, ExerciseService exerciseService)
+        public WorkoutManager(WorkoutService workoutService, ExerciseService exerciseService, WorkoutPlanService planService)
         {
             _workoutService = workoutService;
             _exerciseService = exerciseService;
+            _planService = planService;
         }
 
 
@@ -26,6 +28,15 @@ namespace GYM_LOGICS.Managers
         public Task<ExerciseByMuscleResponse> GetExercisesByTargetMuscle(Muscles targetMuscle)
         {
             return Task.FromResult(_exerciseService.GetExercisesByTargetMuscle(targetMuscle));
+        }
+
+        /// <summary>
+        /// Asynchronously retrieves all workout plans associated with the current user.
+        /// </summary>
+        /// <returns>A Task containing a list of all workout plans for the current user.</returns>
+        public Task<List<WorkoutPlan>> GetAllMyPlans()
+        {
+            return Task.FromResult(_planService.GetAllMyPlans());
         }
 
 
