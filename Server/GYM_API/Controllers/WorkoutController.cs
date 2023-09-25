@@ -1,8 +1,7 @@
 ﻿using GYM_API.Controllers.Base;
 using GYM_LOGICS.Managers;
+using GYM_MODELS.Client;
 using GYM_MODELS.Client.WorkoutCreator;
-using GYM_MODELS.DB;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using static GYM_MODELS.Settings.Swagger;
@@ -21,6 +20,17 @@ namespace GYM_API.Controllers
             _workoutManager = workoutManager;
         }
 
+        /// <summary>
+        /// Retrieves all workouts plans for the current user.
+        /// </summary>
+        [HttpGet]
+        [Route("GetAllPlans")]
+        [SwaggerOperation(Tags = new[] { nameof(ApiGroupNames.DataRetrieval) })]
+        public ActionResult<List<WorkoutPlan>> GetAllPlans()
+        {
+            return Ok(_workoutManager.GetAllMyPlans());
+        }
+
 
         /// <summary>
         /// Retrieves all workouts for the current user.
@@ -28,7 +38,7 @@ namespace GYM_API.Controllers
         [HttpGet]
         [Route("GetAllWorkouts")]
         [SwaggerOperation(Tags = new[] { nameof(ApiGroupNames.DataRetrieval) })]
-        public ActionResult<List<WorkoutDBRecord>> GetAllWorkouts()
+        public ActionResult<List<Workout>> GetAllWorkouts()
         {
             return Ok(_workoutManager.GetAllMyWorkouts());
         }

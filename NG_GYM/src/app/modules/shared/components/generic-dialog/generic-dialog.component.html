@@ -1,5 +1,5 @@
-<div class="dialog-backdrop" *ngIf="isOpen">
-    <div class="dialog">
+<div class="dialog-backdrop" *ngIf="isOpen" (click)="onBackdropClick($event)">
+  <div class="dialog" #dialogElement>
       <div class="dialog-header">
         <h3>Confirm Action</h3>
       </div>

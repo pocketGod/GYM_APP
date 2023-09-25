@@ -2,17 +2,17 @@ import { ApiGroupNames } from "../enums/ApiGrouping.enum";
 
 
 export interface EnumPropertiesGroupModel {
-    GroupName: ApiGroupNames;
-    Enums: EnumPropertiesModel[];
+    groupName: ApiGroupNames;
+    enums: EnumPropertiesModel[];
 }
   
 export interface EnumPropertiesModel {
-    EnumName: string;
-    EnumValues: EnumPropertiesValueModel[];
+    enumName: string;
+    enumValues: EnumPropertiesValueModel[];
 }
 
 export interface EnumPropertiesValueModel {
-    Name: string;
-    Value: number;
-    Summary: string;
+    name: string;
+    value: number;
+    summary: string;
 }

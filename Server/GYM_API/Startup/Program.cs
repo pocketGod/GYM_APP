@@ -19,12 +19,14 @@ builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<PropertiesService>();
 builder.Services.AddScoped<ExerciseService>();
 builder.Services.AddScoped<WorkoutService>();
+builder.Services.AddScoped<WorkoutPlanService>();
 // Managers
 builder.Services.AddScoped<WorkoutManager>();
 builder.Services.AddScoped<PropertiesManager>();
 // Builders
 builder.Services.AddScoped<ExerciseBuilder>();
 builder.Services.AddScoped<WorkoutBuilder>();
+builder.Services.AddScoped<WorkoutPlanBuilder>();
 // MongoDB
 MongoDBSettings? mongoDbSettings = builder.Configuration.GetSection("MongoDB").Get<MongoDBSettings>();
 builder.Services.AddSingleton<IMongoClient>(serviceProvider => new MongoClient(mongoDbSettings.ConnectionString));
