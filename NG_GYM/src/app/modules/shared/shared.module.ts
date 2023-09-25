@@ -7,6 +7,7 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { GenericDialogComponent } from './components/generic-dialog/generic-dialog.component';
 import { GenericNotificationComponent } from './components/generic-notification/generic-notification.component';
 import { GenericNotificationsContainerComponent } from './components/generic-notifications-container/generic-notifications-container.component';
+import { GenericCheckboxComponent } from './components/generic-checkbox/generic-checkbox.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { GenericNotificationsContainerComponent } from './components/generic-not
     CapitalizePipe,
     GenericDialogComponent,
     GenericNotificationComponent,
-    GenericNotificationsContainerComponent
+    GenericNotificationsContainerComponent,
+    GenericCheckboxComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +29,7 @@ import { GenericNotificationsContainerComponent } from './components/generic-not
     GenericDialogComponent,
     GenericNotificationComponent,
     GenericNotificationsContainerComponent,
+    GenericCheckboxComponent,
     AutofocusDirective
   ]
 })

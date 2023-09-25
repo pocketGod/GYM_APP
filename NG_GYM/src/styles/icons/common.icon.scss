@@ -1,0 +1,39 @@
+.thin-check-mark-icon {
+    --color: #333;
+    width: 19px;
+    height: 33px;
+    border: 2px solid var(--color);
+    border-left: 0;
+    border-top: 0;
+    transform: rotate(45deg);
+}
+
+.thick-check-mark-icon {
+    --color: #333;
+    width: 19px;
+    height: 33px;
+    border: 10px solid var(--color);
+    border-left: 0;
+    border-top: 0;
+    transform: rotate(45deg);
+}
+
+
+.plus-icon {
+    --color: #333;
+    
+    background: var(--color);
+    height: 50px;
+    position: relative;
+    width: 8px;
+
+    &:after {
+        background: var(--color);
+        content: "";
+        height: 8px;
+        left: -21px;
+        position: absolute;
+        top: 21px;
+        width: 50px;
+    }
+}

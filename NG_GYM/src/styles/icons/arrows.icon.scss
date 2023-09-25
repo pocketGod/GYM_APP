@@ -1,0 +1,36 @@
+/* Base styles for thin arrows */
+.thin-arrow-up, .thin-arrow-down, .thin-arrow-left, .thin-arrow-right {
+    --color: #333;
+    width: 33px;
+    height: 33px;
+    border: 2px solid var(--color);
+    border-left: 0;
+    border-top: 0;
+}
+
+/* Base styles for thick arrows */
+.thick-arrow-up, .thick-arrow-down, .thick-arrow-left, .thick-arrow-right {
+    --color: #333;
+    width: 25px;
+    height: 25px;
+    border: 10px solid var(--color);
+    border-left: 0;
+    border-top: 0;
+}
+
+/* Directional styles */
+.thin-arrow-up, .thick-arrow-up {
+    transform: rotate(225deg);
+}
+
+.thin-arrow-down, .thick-arrow-down {
+    transform: rotate(45deg);
+}
+
+.thin-arrow-left, .thick-arrow-left {
+    transform: rotate(135deg);
+}
+
+.thin-arrow-right, .thick-arrow-right {
+    transform: rotate(315deg);
+}
