@@ -64,6 +64,14 @@ namespace GYM_DB.Tools.CustomSerializers
             writer.WriteEndDocument();
         }
 
+        void IBsonSerializer.Serialize(BsonSerializationContext context, BsonSerializationArgs args, object value)
+        {
+            Serialize(context, args, (WorkoutPlanInnerWorkoutDBRecord)value);
+        }
 
+        object IBsonSerializer.Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
+        {
+            return Deserialize(context, args);
+        }
     }
 }
