@@ -10,9 +10,9 @@ GYM_*/bin/
 GYM_*/obj/
 
 # Ignore specific app settings in the GYM_API folder
-# GYM_API/appsettings.json
-# GYM_API/appsettings.Development.json
+GYM_API/appsettings.json
+GYM_API/appsettings.Development.json
 
 #ignore all appsettings in the solution
-# **/appsettings.json
-# **/appsettings.Development.json
+**/appsettings.json
+**/appsettings.Development.json
