@@ -3,7 +3,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 
-namespace GYM_DB.Bootstrap
+namespace GYM_DB.Tools.CustomSerializers
 {
     public class WorkoutPlanInnerWorkoutDBRecordSerializer : IBsonSerializer<WorkoutPlanInnerWorkoutDBRecord>
     {
@@ -64,14 +64,6 @@ namespace GYM_DB.Bootstrap
             writer.WriteEndDocument();
         }
 
-        public void Serialize(BsonSerializationContext context, BsonSerializationArgs args, object value)
-        {
-            Serialize(context, args, (WorkoutPlanInnerWorkoutDBRecord)value);
-        }
 
-        object IBsonSerializer.Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)
-        {
-            return Deserialize(context, args);
-        }
     }
 }

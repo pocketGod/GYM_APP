@@ -1,5 +1,6 @@
-﻿using MongoDB.Bson.Serialization;
+﻿using GYM_DB.Tools.CustomSerializers;
 using GYM_MODELS.DB;
+using MongoDB.Bson.Serialization;
 
 namespace GYM_DB.Bootstrap
 {
