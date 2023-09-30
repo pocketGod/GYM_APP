@@ -1,73 +1,46 @@
-﻿using GYM_LOGICS.Builders;
+﻿using GYM_DB.Repositories;
+using GYM_LOGICS.Builders;
 using GYM_MODELS.Client;
-using GYM_MODELS.DB;
 using GYM_MODELS.Enums.Anatomy;
-using Microsoft.AspNetCore.Http;
-using Microsoft.IdentityModel.Tokens;
-using MongoDB.Driver;
 
 namespace GYM_LOGICS.Services
 {
     public class ExerciseService
     {
-        private readonly string _collectionName = "Excercises";
-        private readonly IMongoCollection<ExerciseDBRecord> _exercises;
+        private readonly IExerciseRepository _exerciseRepository;
         private readonly ExerciseBuilder _exeBuilder;
 
-        public ExerciseService(
-            IMongoDatabase database, 
-            ExerciseBuilder exeBuilder
-            )
+        public ExerciseService(IExerciseRepository exerciseRepository, ExerciseBuilder exeBuilder)
         {
-            _exercises = database.GetCollection<ExerciseDBRecord>(_collectionName);
+            _exerciseRepository = exerciseRepository;
             _exeBuilder = exeBuilder;
         }
 
         public List<Exercise> GetAllExercises()
         {
-            List<ExerciseDBRecord> dbRecords = _exercises.Find(exe => true).ToList();
+            var dbRecords = _exerciseRepository.GetAllExercises();
             return dbRecords.Select(_exeBuilder.Build).ToList();
         }
 
         public ExerciseByMuscleResponse GetExercisesByTargetMuscle(Muscles targetMuscle)
         {
+            var dbRecords = _exerciseRepository.GetExercisesByTargetMuscle(targetMuscle);
+            var exercises = dbRecords.Select(_exeBuilder.Build).ToList();
 
-            // exercises where TargetMuscle matches the input
-            IEnumerable<Exercise> targetMuscleExercises = _exercises
-                .Find(exe => exe.TargetMuscle == targetMuscle)
-                .ToList()
-                .Select(_exeBuilder.Build);
-
-            // exercises where targetMuscle is in IncludedMuscles
-            List<Exercise> includedMuscleExercises = _exercises
-                .Find(exe => exe.IncludedMuscles.Contains(targetMuscle))
-                .ToList()
-                .Select(_exeBuilder.Build)
-                .Where(included => !targetMuscleExercises.Any(target => target.Id == included.Id))
-                .ToList();
+            var targetMuscleExercises = exercises.Where(exe => exe.TargetMuscle == targetMuscle).ToList();
+            var includedMuscleExercises = exercises.Where(exe => exe.IncludedMuscles.Contains(targetMuscle)).ToList();
 
             return new ExerciseByMuscleResponse
             {
-                Target = targetMuscleExercises.ToList(),
+                Target = targetMuscleExercises,
                 Included = includedMuscleExercises
             };
-
         }
-
-
 
         public Exercise GetFullExerciseByID(string exeID)
         {
-            ExerciseDBRecord exe = _exercises.Find(exe => exe._id == exeID).FirstOrDefault();
-
-            if (exe == null)
-            {
-                // Handle invalid ID, maybe throw an exception or return null
-                return null;
-            }
-
-            return _exeBuilder.Build(exe);
+            var dbRecord = _exerciseRepository.GetFullExerciseByID(exeID);
+            return dbRecord == null ? null : _exeBuilder.Build(dbRecord);
         }
-
     }
 }

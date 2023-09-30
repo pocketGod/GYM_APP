@@ -1,5 +1,6 @@
-using GYM_API.Controllers.Base;
+using DatabaseBootstrapLibrary;
 using GYM_API.Middlewares;
+using GYM_DB.Repositories;
 using GYM_LOGICS.Builders;
 using GYM_LOGICS.Managers;
 using GYM_LOGICS.Services;
@@ -7,12 +8,18 @@ using GYM_MODELS.Settings;
 using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
 using System.Reflection;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using static GYM_MODELS.Settings.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// General Configuration
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddHttpContextAccessor();
+
 // Dependency Injections
+// DB
+DatabaseBootstrap.Initialize(builder.Services, builder.Configuration);
 // Services
 builder.Services.AddScoped<JWTService>();
 builder.Services.AddScoped<AuthService>();
@@ -27,10 +34,6 @@ builder.Services.AddScoped<PropertiesManager>();
 builder.Services.AddScoped<ExerciseBuilder>();
 builder.Services.AddScoped<WorkoutBuilder>();
 builder.Services.AddScoped<WorkoutPlanBuilder>();
-// MongoDB
-MongoDBSettings? mongoDbSettings = builder.Configuration.GetSection("MongoDB").Get<MongoDBSettings>();
-builder.Services.AddSingleton<IMongoClient>(serviceProvider => new MongoClient(mongoDbSettings.ConnectionString));
-builder.Services.AddSingleton(serviceProvider => serviceProvider.GetRequiredService<IMongoClient>().GetDatabase(mongoDbSettings.DatabaseName));
 // JWT
 builder.Services.AddSingleton(builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>());
 // Swagger Auth 
@@ -71,11 +74,6 @@ builder.Services.AddSwaggerGen(c =>
 
 
 });
-
-// General Configuration
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddHttpContextAccessor();
 
 WebApplication app = builder.Build();
 

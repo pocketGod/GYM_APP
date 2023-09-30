@@ -1,29 +1,27 @@
 ﻿
+using GYM_DB.Repositories;
 using GYM_MODELS.DB;
 using GYM_MODELS.Settings;
-using MongoDB.Driver;
 using System.Security.Cryptography;
-using System.Text;
 
 namespace GYM_LOGICS.Services
 {
     public class AuthService
     {
         private readonly JWTService _jwtService;
-        private readonly IMongoDatabase _databaseRef;
-        private readonly string _collectionName = "Users";
+        private readonly IUserRepository _userRepository;
 
-        public AuthService(JWTService jwtService, IMongoDatabase databaseRef)
+        public AuthService(JWTService jwtService, IUserRepository userRepository)
         {
             _jwtService = jwtService;
-            _databaseRef = databaseRef;
+            _userRepository = userRepository;
         }
 
         public LoginResult Login(LoginModel loginForm)
         {
             LoginResult result = new();
 
-            UserDBRecord? userRecord = FindUserByUsername(loginForm.Username);
+            UserDBRecord? userRecord = _userRepository.FindUserByUsername(loginForm.Username);
 
             if (userRecord == null)
             {
@@ -55,7 +53,7 @@ namespace GYM_LOGICS.Services
                 return result;
             }
 
-            UserDBRecord? existingUser = FindUserByUsername(registerModel.Username);
+            UserDBRecord? existingUser = _userRepository.FindUserByUsername(registerModel.Username);
 
             if (existingUser != null)
             {
@@ -71,7 +69,7 @@ namespace GYM_LOGICS.Services
                 Pass = encryptedPassword
             };
 
-            _databaseRef.GetCollection<UserDBRecord>(_collectionName).InsertOne(newUser);
+            _userRepository.InsertUser(newUser);
 
             // Generate a token for the new user
             result.Token = _jwtService.GenerateJwtToken(newUser._id);
@@ -157,12 +155,7 @@ namespace GYM_LOGICS.Services
 
             return Convert.ToBase64String(hashBytes);
         }
-        private UserDBRecord? FindUserByUsername(string username)
-        {
-            IMongoCollection<UserDBRecord> userCollectionRef = _databaseRef.GetCollection<UserDBRecord>(_collectionName);
-            FilterDefinition<UserDBRecord> filter = Builders<UserDBRecord>.Filter.Eq(u => u.User, username);
-            return userCollectionRef.Find(filter).FirstOrDefault();
-        }
+     
     }
 
 }
