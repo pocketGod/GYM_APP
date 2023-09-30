@@ -1,7 +1,6 @@
 ﻿using GYM_API.Controllers.Base;
 using GYM_LOGICS.Managers;
 using GYM_MODELS.Client.WorkoutCreator;
-using GYM_MODELS.DB;
 using GYM_MODELS.Settings.Properties;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

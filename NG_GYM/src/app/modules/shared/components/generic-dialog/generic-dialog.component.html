@@ -1,5 +1,5 @@
 <div class="dialog-backdrop" *ngIf="isOpen" (click)="onBackdropClick($event)">
-  <div class="dialog" #dialogElement>
+  <div class="dialog-container" #dialogElement>
       <div class="dialog-header">
         <h3>Confirm Action</h3>
       </div>
@@ -7,8 +7,8 @@
         <p>{{message}}</p>
       </div>
       <div class="dialog-footer">
-        <button (click)="confirm()">Confirm</button>
-        <button (click)="cancel()">Cancel</button>
+        <button (click)="confirm()" class="primary-btn">Confirm</button>
+        <button (click)="cancel()" class="secondary-btn">Cancel</button>
       </div>
     </div>
 </div>

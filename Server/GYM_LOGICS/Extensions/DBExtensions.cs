@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GYM_LOGICS.Extensions
 {
-    public static class DB_Extensions
+    public static class DBExtensions
     {
         public static bool IsValidMongoDBObjectId(this string str)
         {

@@ -1,10 +1,5 @@
 ﻿using GYM_MODELS.Client;
 using GYM_MODELS.DB;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GYM_LOGICS.Builders
 {

@@ -1,11 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace GYM_MODELS.DB
 {
@@ -14,8 +8,17 @@ namespace GYM_MODELS.DB
         [BsonRepresentation(BsonType.ObjectId)]
         public string OwnerUserId { get; set; }
         public string PlanName { get; set; }
-        public List<ObjectId> Workouts { get; set; }
+        public List<WorkoutPlanInnerWorkoutDBRecord> Workouts { get; set; }
     }
+
+    public class WorkoutPlanInnerWorkoutDBRecord
+    {
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
+        [BsonRepresentation(BsonType.DateTime)]
+        public DateTime LastRecord { get; set; }
+    }
+
 
 
 

@@ -2,5 +2,10 @@ import { Workout } from "./Workout.model";
 
 export interface WorkoutPlan{
     name: string,
-    workouts: Workout[]
+    workouts: WorkoutPlanWorkout[]
+}
+
+export interface WorkoutPlanWorkout{
+    workout: Workout,
+    lastRecord: Date
 }

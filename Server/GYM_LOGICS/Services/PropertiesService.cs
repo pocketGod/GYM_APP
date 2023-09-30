@@ -1,9 +1,4 @@
-﻿using GYM_MODELS.Enums.Anatomy;
-using GYM_MODELS.Enums.Common;
-using GYM_MODELS.Enums.Exercise;
-using GYM_MODELS.Enums.Gym;
-using GYM_MODELS.Enums.User;
-using GYM_MODELS.Enums.Workout;
+﻿using GYM_MODELS.Enums.Workout;
 using GYM_MODELS.Settings.Properties;
 using System.Reflection;
 using System.Xml.Linq;

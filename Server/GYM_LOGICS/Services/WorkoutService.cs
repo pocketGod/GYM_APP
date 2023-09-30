@@ -1,4 +1,5 @@
-﻿using GYM_LOGICS.Builders;
+﻿using GYM_DB.Repositories;
+using GYM_LOGICS.Builders;
 using GYM_LOGICS.Extensions;
 using GYM_MODELS.Client;
 using GYM_MODELS.Client.WorkoutCreator;
@@ -6,97 +7,67 @@ using GYM_MODELS.DB;
 using GYM_MODELS.Settings.Properties;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
-using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GYM_LOGICS.Services
 {
     public class WorkoutService
     {
-        private readonly string _collectionName = "Workouts";
-        private readonly IMongoCollection<WorkoutDBRecord> _workouts;
+        private readonly IWorkoutRepository _workoutRepository;
         private readonly WorkoutBuilder _workoutBuilder;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly PropertiesService _propertiesService;
         private readonly ExerciseService _exerciseService;
 
         public WorkoutService(
-            IMongoDatabase database, 
-            WorkoutBuilder workoutBuilder, 
+            IWorkoutRepository workoutRepository,
+            WorkoutBuilder workoutBuilder,
             IHttpContextAccessor httpContextAccessor,
             PropertiesService propertiesService,
-            ExerciseService exerciseService
-            )
+            ExerciseService exerciseService)
         {
-            _workouts = database.GetCollection<WorkoutDBRecord>(_collectionName);
+            _workoutRepository = workoutRepository;
             _workoutBuilder = workoutBuilder;
             _httpContextAccessor = httpContextAccessor;
             _propertiesService = propertiesService;
             _exerciseService = exerciseService;
         }
 
-
         public List<Workout> GetAllMyWorkouts()
         {
-
             string connectedUserId = _httpContextAccessor.HttpContext.Items["UserId"].ToString();
-
-            List<WorkoutDBRecord> dbRecords = _workouts.Find(workout => workout.OwnerUserId == connectedUserId).ToList();
+            List<WorkoutDBRecord> dbRecords = _workoutRepository.GetWorkoutsByOwner(connectedUserId);
             return dbRecords.Select(_workoutBuilder.BuildForClient).ToList();
         }
 
         public Workout GetWorkoutById(string id)
         {
-            WorkoutDBRecord dbRecord = _workouts.Find(wo => wo._id == id).ToList().FirstOrDefault();
+            WorkoutDBRecord dbRecord = _workoutRepository.GetWorkoutById(id);
             return _workoutBuilder.BuildForClient(dbRecord);
         }
-
-
 
         public WorkoutCreatorPropertiesResponse GetWorkoutCreationProperties()
         {
             List<EnumPropertiesGroupModel> enums = _propertiesService.GetAllEnums();
-
             if (enums.IsNullOrEmpty()) return null;
 
-            List<EnumPropertiesModel> workoutEnums = enums.FirstOrDefault((en)=> en.GroupName == EnumGroups.Workout.ToString()).Enums;
-
+            List<EnumPropertiesModel> workoutEnums = enums.FirstOrDefault(en => en.GroupName == EnumGroups.Workout.ToString()).Enums;
             List<Dictionary<string, List<Exercise>>> exercises = _exerciseService.GetAllExercises().GroupExercisesByTargetMuscle();
 
-            WorkoutCreatorPropertiesResponse response = new()
+            return new WorkoutCreatorPropertiesResponse
             {
-                Exercises= exercises,
+                Exercises = exercises,
                 WorkoutProperties = workoutEnums
             };
-
-
-            return response;
         }
 
         public bool AddNewWorkoutToCollection(NewWorkoutSchema newWorkout)
         {
-            try
-            {
+            if (!newWorkout.IsNewWorkoutValid()) return false;
 
-                if (!newWorkout.IsNewWorkoutValid()) return false;
+            string connectedUserId = _httpContextAccessor.HttpContext.Items["UserId"].ToString();
+            WorkoutDBRecord workoutDBRecord = _workoutBuilder.BuildNewWorkout(newWorkout, connectedUserId);
 
-                string connectedUserId = _httpContextAccessor.HttpContext.Items["UserId"].ToString();
-
-                WorkoutDBRecord workoutDBRecord = _workoutBuilder.BuildNewWorkout(newWorkout, connectedUserId);
-
-                _workouts.InsertOne(workoutDBRecord);
-                // If the record was not inserted in the DB successfully than the code will jump to the catch block
-
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            return _workoutRepository.InsertOne(workoutDBRecord);
         }
 
         public bool EditWorkoutInCollection(NewWorkoutSchema newWorkout)
@@ -107,21 +78,15 @@ namespace GYM_LOGICS.Services
 
                 string connectedUserId = _httpContextAccessor.HttpContext.Items["UserId"].ToString();
 
-                WorkoutDBRecord originalWorkout = _workouts.Find(w => w._id == newWorkout.WorkoutId && w.OwnerUserId == connectedUserId).FirstOrDefault();
+                WorkoutDBRecord originalWorkout = _workoutRepository.GetWorkoutById(newWorkout.WorkoutId);
 
-                if (originalWorkout == null) return false;
+                if (originalWorkout == null || originalWorkout.OwnerUserId != connectedUserId) return false;
 
                 WorkoutDBRecord workoutDBRecord = _workoutBuilder.BuildNewWorkout(newWorkout, connectedUserId);
 
                 workoutDBRecord._id = originalWorkout._id;
 
-                FilterDefinition<WorkoutDBRecord> filter = Builders<WorkoutDBRecord>.Filter.Eq(w => w._id, newWorkout.WorkoutId) &
-                    Builders<WorkoutDBRecord>.Filter.Eq(w => w.OwnerUserId, connectedUserId);
-
-                ReplaceOneResult result = _workouts.ReplaceOne(filter, workoutDBRecord);
-
-                // Check if a document was actually modified
-                return result.ModifiedCount > 0;
+                return _workoutRepository.ReplaceOne(newWorkout.WorkoutId, workoutDBRecord);
             }
             catch (Exception)
             {
@@ -130,7 +95,6 @@ namespace GYM_LOGICS.Services
         }
 
 
-
-
     }
+
 }

@@ -5,12 +5,12 @@
 
             <!-- TD workout component -->
             
-            <div class="workout-name">{{ wo.name }}</div>
-            <div class="workout-type">{{ getWorkoutTypeValue(wo.workoutType) }}</div>
+            <div class="workout-name">{{ wo.workout.name }}</div>
+            <div class="workout-type">{{ getWorkoutTypeValue(wo.workout.workoutType) }}</div>
         </div>
     </div>
 </div>
 
 
-<generic-checkbox [label]="'My Checkbox'" [(isChecked)]="someBooleanVariable"></generic-checkbox>
 
+<generic-checkbox [label]="'My Checkbox'" [(isChecked)]="someBooleanVariable"></generic-checkbox>
